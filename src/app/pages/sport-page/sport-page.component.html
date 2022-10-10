@@ -1,0 +1,156 @@
+<div class="page">
+  <div class="page-inner mb-90">
+    <div class="sport">
+      <div class="sport-item mr-50">
+        <div class="w-100 center">
+          <mat-card-title class="mb-30">New sport</mat-card-title>
+        </div>
+        <app-upload [medium]="true"></app-upload>
+        <mat-form-field appearance="outline" class="mt-20">
+          <mat-label>Enter title</mat-label>
+          <input matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Enter description</mat-label>
+          <textarea class="post-description" matInput></textarea>
+        </mat-form-field>
+        <div class="sport-buttons">
+          <a mat-button color="accent" routerLink="/sports">Cancel</a>
+          <button mat-raised-button color="primary">Save</button>
+        </div>
+      </div>
+      <div class="sport-item">
+        <div class="w-100 center">
+          <mat-card-title class="mb-30">New trick</mat-card-title>
+        </div>
+        <app-upload [medium]="true"></app-upload>
+        <mat-form-field appearance="outline" class="mt-20">
+          <mat-label>Enter title</mat-label>
+          <input matInput>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Enter description</mat-label>
+          <textarea class="post-description" matInput></textarea>
+        </mat-form-field>
+        <div class="sport-buttons">
+          <a mat-button color="accent">Cancel</a>
+          <button mat-raised-button color="primary">Save</button>
+        </div>
+      </div>
+    </div>
+    <table mat-table [dataSource]="tricks" class="trick-table">
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef class="trick-easy">
+          <div class="trick-title">
+            <mat-icon>add_circle_outline</mat-icon>
+            Easy
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <img [src]="element.image" alt="post-image" class="trick-image">
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>
+          <div class="trick-action-title">Actions</div>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="trick-action">
+            <button mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <table mat-table [dataSource]="tricks" class="trick-table mt-20">
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef class="trick-medium">
+          <div class="trick-title">
+            <mat-icon>add_circle_outline</mat-icon>
+            Medium
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <img [src]="element.image" alt="post-image" class="trick-image">
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>
+          <div class="trick-action-title">Actions</div>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="trick-action">
+            <button mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+    <table mat-table [dataSource]="tricks" class="trick-table mt-20">
+      <ng-container matColumnDef="image">
+        <th mat-header-cell *matHeaderCellDef class="trick-hard">
+          <div class="trick-title">
+            <mat-icon>add_circle_outline</mat-icon>
+            Hard
+          </div>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <img [src]="element.image" alt="post-image" class="trick-image">
+        </td>
+      </ng-container>
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef> Name </th>
+        <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+      </ng-container>
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef> Description </th>
+        <td mat-cell *matCellDef="let element"> {{element.description}} </td>
+      </ng-container>
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef>
+          <div class="trick-action-title">Actions</div>
+        </th>
+        <td mat-cell *matCellDef="let element">
+          <div class="trick-action">
+            <button mat-icon-button>
+              <mat-icon>edit</mat-icon>
+            </button>
+            <button mat-icon-button>
+              <mat-icon>delete</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+  </div>
+</div>

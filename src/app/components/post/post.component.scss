@@ -1,0 +1,96 @@
+.post {
+  width: 100%;
+  &-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    cursor: pointer;
+    &-wrapper {
+      position: relative;
+      width: 100%;
+      height: 400px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      &-small {
+        height: 200px;
+        margin: 10px;
+        width: auto;
+      }
+    }
+  }
+  &-tags {
+    position: absolute;
+    left: 12px;
+    bottom: 12px;
+  }
+  &-label {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #212121;
+    padding: 10px 15px;
+    border-radius: 0 0 20px 0;
+    box-shadow: 0 0 10px black;
+    cursor: pointer;
+    //box-shadow:
+    //  0 4px 2px -2px rgb(0 0 0 / 20%),
+    //  0 2px 2px 0 rgb(0 0 0 / 14%),
+    //  0 2px 6px 0 rgb(0 0 0 / 12%);
+  }
+  &-title {
+    &-wrapper {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 20px;
+    }
+  }
+  &-rating {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    &-item {
+      width: unset;
+      min-width: 40px;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      border-radius: 100px;
+      &:hover {
+        .post-rating-item-count {
+          padding-right: 10px;
+          max-width: 34px; //TODO refactor animation
+        }
+      }
+      &-inner {
+        display: flex;
+        align-items: center;
+      }
+      &-icon {
+        width: 40px;
+        height: 40px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      &-count {
+        transition: all .5s ease;
+        overflow: hidden;
+        margin-top: 2px;
+        max-width: 0; //TODO refactor animation
+        padding-right: 0;
+      }
+    }
+  }
+  &-avatar {
+    display: flex;
+    align-items: center;
+    position: absolute;
+    top: 10px;
+    left: 10px;
+  }
+}

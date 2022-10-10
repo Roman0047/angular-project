@@ -1,0 +1,40 @@
+<div class="page">
+  <div class="page-inner">
+    <div class="w-100 center">
+      <mat-card-title class="mb-30">Upload new post</mat-card-title>
+    </div>
+    <app-upload></app-upload>
+    <div class="post-info">
+      <div class="post-fields">
+        <mat-form-field appearance="outline">
+          <mat-label>Enter title</mat-label>
+          <input matInput>
+        </mat-form-field>
+<!--        <app-autocomplete-->
+<!--          [options]="sports"-->
+<!--          (setOptions)="form.sports = $event"-->
+<!--          label="Enter the sports that this post is about"-->
+<!--        ></app-autocomplete>-->
+      </div>
+      <button mat-raised-button color="primary" class="post-upload">Upload</button>
+    </div>
+    <div class="sport-fields">
+      <app-autocomplete-single
+        [options]="sports"
+        label="Enter the sport that this post is about"
+        appearance="outline"
+        (updateValue)="form.sport = $event"
+      ></app-autocomplete-single>
+      <app-autocomplete-single
+        [options]="tricks"
+        label="Enter the trick that this post is about"
+        appearance="outline"
+        (updateValue)="form.trick = $event"
+      ></app-autocomplete-single>
+    </div>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter description</mat-label>
+      <textarea class="post-description" matInput></textarea>
+    </mat-form-field>
+  </div>
+</div>

@@ -1,0 +1,7 @@
+<div class="upload" [ngClass]="{'upload-small': small, 'upload-medium': medium}" (click)="upload.click()">
+  <img *ngIf="file" [src]="file" class="upload-image" alt="upload">
+  <input type="file" style="display: none" #upload (change)="readURL($event)">
+  <button *ngIf="!file" mat-fab color="basic" class="upload-button">
+    <mat-icon class="upload-button-icon">upload</mat-icon>
+  </button>
+</div>

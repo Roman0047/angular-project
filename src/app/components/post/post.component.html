@@ -1,0 +1,40 @@
+<div class="post">
+  <div class="post-image-wrapper" [ngClass]="{'post-image-wrapper-small': small}">
+    <mat-card-title *ngIf="small" class="post-label mb-0" routerLink="/post">Title</mat-card-title>
+    <div *ngIf="!small">
+      <div class="post-avatar">
+        <app-avatar></app-avatar>
+      </div>
+      <mat-chip-list class="post-tags">
+        <mat-chip>sport</mat-chip>
+        <mat-chip>trick</mat-chip>
+      </mat-chip-list>
+      <div class="post-rating">
+        <button mat-mini-fab color="primary" class="post-rating-item">
+        <span class="post-rating-item-inner">
+          <span class="post-rating-item-icon">
+          <mat-icon>thumb_up</mat-icon>
+          </span>
+          <span class="post-rating-item-count">100</span>
+        </span>
+        </button>
+        <button mat-mini-fab color="primary" class="post-rating-item ml-10">
+        <span class="post-rating-item-inner">
+          <span class="post-rating-item-icon">
+          <mat-icon>thumb_down</mat-icon>
+          </span>
+          <span class="post-rating-item-count">5</span>
+        </span>
+        </button>
+      </div>
+    </div>
+    <img src="https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg" alt="post-image" routerLink="/post" class="post-image">
+  </div>
+  <div *ngIf="!small">
+    <div class="post-title-wrapper">
+      <mat-card-title class="mb-0">Title</mat-card-title>
+      <button mat-raised-button color="primary">Subscribe</button>
+    </div>
+    <mat-card-subtitle class="mt-10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias animi aperiam commodi cumque ducimus, enim facilis labore maiores molestiae mollitia necessitatibus, porro praesentium provident quam quod repellat sint, voluptates.</mat-card-subtitle>
+  </div>
+</div>

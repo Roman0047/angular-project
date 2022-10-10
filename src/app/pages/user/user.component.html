@@ -1,0 +1,34 @@
+<div class="page">
+  <div class="page-inner mb-90">
+    <div class="w-100 center">
+      <mat-card-title class="mb-30">User</mat-card-title>
+    </div>
+    <div class="user-info-wrapper">
+      <div class="user-info">
+        <div *ngIf="!isProfile" class="user-avatar-wrapper">
+          <div class="user-avatar">
+            <img src="https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg" class="user-avatar-image" alt="">
+          </div>
+        </div>
+        <div *ngIf="isProfile" class="user-avatar-upload">
+          <div class="user-avatar-upload-inner">
+            <app-upload [small]="true"></app-upload>
+          </div>
+        </div>
+        <div class="user-info-data">
+          <div>Name: test</div>
+          <div>User sport types:</div>
+          <div>test / test1 / test2</div>
+          <div>Subscription count: test</div>
+          <div>Posts count: test</div>
+        </div>
+        <button *ngIf="!isProfile" mat-raised-button color="primary" class="mr-10">Subscribe</button>
+        <div *ngIf="isProfile" class="user-buttons">
+          <button mat-raised-button color="base" routerLink="/tricks">Update sports and tricks</button>
+          <button mat-raised-button color="base">Logout</button>
+        </div>
+      </div>
+    </div>
+    <app-posts-list></app-posts-list>
+  </div>
+</div>

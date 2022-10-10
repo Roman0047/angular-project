@@ -1,0 +1,12 @@
+<div class="toolbar-wrapper">
+  <mat-card class="toolbar">
+    <button
+      *ngFor="let item of items"
+      [routerLink]="item.link"
+      mat-icon-button
+      [ngClass]="{ 'active': router.url === item.link, 'ml-50 mr-50': item.isCenter }"
+    >
+      <mat-icon>{{ item.icon }}</mat-icon>
+    </button>
+  </mat-card>
+</div>

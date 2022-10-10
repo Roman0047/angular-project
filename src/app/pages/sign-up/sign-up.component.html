@@ -1,0 +1,42 @@
+<div class="page-form">
+  <mat-card-title class="mb-20">Sign Up</mat-card-title>
+  <mat-card class="form-card">
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your name</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your email</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter password</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'">
+      <button
+        mat-icon-button
+        matSuffix (click)="hidePassword = !hidePassword"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword"
+      >
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Confirm password</mat-label>
+      <input matInput [type]="hideConfirmPassword ? 'password' : 'text'">
+      <button
+        mat-icon-button
+        matSuffix (click)="hideConfirmPassword = !hideConfirmPassword"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hideConfirmPassword"
+      >
+        <mat-icon>{{hideConfirmPassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <app-autocomplete [options]="sports" (setOptions)="form.userSports = $event" label="Enter the sports you do"></app-autocomplete>
+    <div class="form-card-buttons">
+      <a mat-button color="accent" routerLink="/sign-in" routerLinkActive="active">Sign In</a>
+      <button mat-raised-button color="primary">Sign Up</button>
+    </div>
+  </mat-card>
+</div>

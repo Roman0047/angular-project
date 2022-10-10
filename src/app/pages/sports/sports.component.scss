@@ -1,0 +1,14 @@
+.sports {
+  &-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  &-add {
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+  }
+}

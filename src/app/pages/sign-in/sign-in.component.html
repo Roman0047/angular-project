@@ -1,0 +1,25 @@
+<div class="page-form">
+  <mat-card-title class="mb-20">Sign In</mat-card-title>
+  <mat-card class="form-card">
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your email</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Enter your password</mat-label>
+      <input matInput [type]="hidePassword ? 'password' : 'text'">
+      <button
+        mat-icon-button
+        matSuffix (click)="hidePassword = !hidePassword"
+        [attr.aria-label]="'Hide password'"
+        [attr.aria-pressed]="hidePassword"
+      >
+        <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
+      </button>
+    </mat-form-field>
+    <div class="form-card-buttons">
+      <a mat-button color="accent" routerLink="/sign-up" routerLinkActive="active">Sign Up</a>
+      <button mat-raised-button color="primary">Sign In</button>
+    </div>
+  </mat-card>
+</div>

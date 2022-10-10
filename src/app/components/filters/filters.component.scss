@@ -1,0 +1,71 @@
+.filters {
+  position: fixed;
+  z-index: 100;
+  top: 0;
+  right: 0;
+  border-bottom-left-radius: 20px;
+  padding: 10px;
+  box-shadow:
+    0 2px 1px -1px rgb(0 0 0 / 20%),
+    0 1px 1px 0 rgb(0 0 0 / 14%),
+    0 1px 3px 0 rgb(0 0 0 / 12%);
+  background: #424242;
+  color: #fff;
+  transition: all .5s ease;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  width: 221px;
+  &-closed {
+    width: 30px;
+    height: 22px;
+    border-bottom-left-radius: 0;
+  }
+  &-inner {
+    display: flex;
+    flex-direction: column;
+  }
+  ::ng-deep {
+    app-autocomplete {
+      width: 221px;
+    }
+    .mat-form-field {
+      width: 221px;
+    }
+    app-autocomplete:last-child {
+      .mat-form-field {
+        .mat-form-field-wrapper {
+          padding: 0 !important;
+        }
+      }
+    }
+  }
+  &-fields {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    margin-top: 34px;
+  }
+  &-divider {
+    border-top: 2px white solid;
+    margin-bottom: 7px;
+  }
+  &-divider:last-child {
+    margin-bottom: 0;
+  }
+  &-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: calc(100% - 20px);
+    padding: 10px;
+
+    cursor: pointer;
+    margin-bottom: 8px;
+    opacity: .6;
+    transition: opacity .5s ease;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}

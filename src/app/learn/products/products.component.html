@@ -1,0 +1,15 @@
+<div>
+  <img [src]="icon" (click)="changeImage()" alt="icon">
+  <h1 [ngStyle]="{ color: count % 2 === 1 ? 'blue' : 'red' }">{{ title }}</h1>
+  <input type="text" [value]="title" (input)="updateTitle($event)">
+  <br>
+  <input type="text" [(ngModel)]="title">
+  <p [ngClass]="{ 'desc-1': count % 2 === 1, 'desc-2': count % 2 === 0 }">
+    {{ getDescription() }}
+  </p>
+  <button mat-raised-button (click)="count = count + 1">add count</button>
+  <div>counter: {{ count }}</div>
+  <div *ngIf="count % 2 === 1" class="products">
+    <app-product *ngFor="let product of products; let i = index" [product]="product" [index]="i"></app-product>
+  </div>
+</div>

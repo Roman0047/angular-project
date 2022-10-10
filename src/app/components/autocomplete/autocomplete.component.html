@@ -1,0 +1,15 @@
+<mat-form-field appearance="outline" class="autocomplete">
+  <mat-label>{{ label }}</mat-label>
+<!--  TODO change mat-select to mat-autocomplete with chips "tab chips in the documentations"-->
+  <mat-select multiple [formControl]="optionsCtrl">
+    <mat-select-trigger>
+      <mat-chip-list>
+        <mat-chip *ngFor="let option of optionsCtrl.value" [removable]="true" (removed)="onFeatureRemoved(option)">
+          {{ option.name }}
+          <mat-icon matChipRemove>cancel</mat-icon>
+        </mat-chip>
+      </mat-chip-list>
+    </mat-select-trigger>
+    <mat-option *ngFor="let option of options" [value]="option">{{ option.name }}</mat-option>
+  </mat-select>
+</mat-form-field>

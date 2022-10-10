@@ -1,0 +1,34 @@
+.post {
+  &-fields {
+    width: 400px;
+    display: flex;
+    flex-direction: column;
+  }
+  &-info {
+    margin-top: 18px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  &-upload {
+    width: 100px;
+  }
+  &-description {
+    height: 100px;
+  }
+}
+.sport-fields {
+  display: flex;
+  align-items: flex-start;
+  app-autocomplete-single:first-child {
+    margin-right: 20px;
+  }
+  app-autocomplete-single {
+    width: 100%;
+  }
+  ::ng-deep {
+    .mat-form-field {
+      width: 100%;
+    }
+  }
+}

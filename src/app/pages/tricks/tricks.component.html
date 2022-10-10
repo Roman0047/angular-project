@@ -1,0 +1,74 @@
+<div class="page">
+  <div class="page-inner mb-90">
+    <div class="w-100 center">
+      <mat-card-title class="mb-30">Choose tricks you can do</mat-card-title>
+    </div>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="mb-10">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          sport 1
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <div class="level-easy">
+          Easy
+          <button *ngIf="isAdmin" mat-icon-button color="primary">+</button>
+        </div>
+        <div class="tricks-list">
+          <div class="tricks-list-item">
+            <mat-checkbox color="primary"></mat-checkbox>
+            <mat-chip-list>
+              <mat-chip routerLink="/trick">trick 1 <mat-icon>visibility</mat-icon></mat-chip>
+            </mat-chip-list>
+          </div>
+          <div class="tricks-list-item">
+            <mat-checkbox color="primary"></mat-checkbox>
+            <mat-chip-list>
+              <mat-chip routerLink="/trick">trick 1 <mat-icon>visibility</mat-icon></mat-chip>
+            </mat-chip-list>
+          </div>
+        </div>
+        <div class="level-medium">
+          Medium
+          <button *ngIf="isAdmin" mat-icon-button color="primary">+</button>
+        </div>
+        <div class="level-hard">
+          Hard
+          <button *ngIf="isAdmin" mat-icon-button color="primary">+</button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="mb-10">
+      <mat-expansion-panel-header>
+        <mat-panel-title>
+          sport 2
+        </mat-panel-title>
+      </mat-expansion-panel-header>
+      <div>
+        <div class="level-easy">
+          Easy
+          <button *ngIf="isAdmin" mat-icon-button color="primary">+</button>
+        </div>
+      </div>
+    </mat-expansion-panel>
+
+
+    <div class="add-sport">
+      <mat-form-field *ngIf="isAdmin; else userActions" appearance="fill">
+        <mat-label>Sport name</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <ng-template #userActions>
+        <app-autocomplete-single
+          [options]="sports"
+          label="Add new sport"
+          appearance="fill"
+          (updateValue)="selectedSport = $event"
+        ></app-autocomplete-single>
+      </ng-template>
+      <button class="add-sport-button" mat-raised-button color="primary">
+        {{ isAdmin ? 'Create Sport' : 'Add' }}
+      </button>
+    </div>
+  </div>
+</div>

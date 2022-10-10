@@ -1,0 +1,16 @@
+.toolbar {
+  position: fixed;
+  bottom: 30px;
+  display: flex;
+  justify-content: center;
+  padding: 10px;
+  transform: translateX(-2px);
+  &-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+  }
+  .active {
+    background-color: #C2185B;
+  }
+}

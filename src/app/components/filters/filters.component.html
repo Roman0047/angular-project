@@ -1,0 +1,17 @@
+<div class="filters" id="filters" [ngClass]="{'filters-closed': !isOpen}">
+  <div class="filters-inner" id="filters-inner">
+    <div class="filters-icon" (click)="setIsOpen()">
+      <mat-divider class="filters-divider"></mat-divider>
+      <mat-divider class="filters-divider"></mat-divider>
+      <mat-divider class="filters-divider"></mat-divider>
+    </div>
+    <div class="filters-fields">
+      <mat-form-field appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput>
+      </mat-form-field>
+      <app-autocomplete [options]="sports" (setOptions)="selectSports($event)" label="Search by sports"></app-autocomplete>
+      <app-autocomplete [options]="sports" (setOptions)="selectSports($event)" label="Search by tricks"></app-autocomplete>
+    </div>
+  </div>
+</div>

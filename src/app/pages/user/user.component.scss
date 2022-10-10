@@ -1,0 +1,47 @@
+.user {
+  &-info {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    &-wrapper {
+      margin: 0 -10px 50px;
+    }
+    &-data {
+      flex: 1;
+      font-size: 20px;
+      margin-left: 20px;
+      div {
+        margin-bottom: 12px;
+      }
+    }
+  }
+  &-avatar {
+    height: 100%;
+    padding: 0 10px;
+    &-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    &-wrapper {
+      width: 33.33%;
+      height: 200px;
+    }
+    &-upload {
+      width: 33.33%;
+      &-inner {
+        margin: 0 10px;
+      }
+    }
+  }
+  &-buttons {
+    display: flex;
+    flex-direction: column;
+    width: 200px;
+    margin-right: 10px;
+    button {
+      margin-bottom: 10px;
+    }
+  }
+}

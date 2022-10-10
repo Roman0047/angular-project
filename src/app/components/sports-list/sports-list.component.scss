@@ -1,0 +1,13 @@
+.posts {
+  &-list {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    &-wrapper {
+      margin: -10px;
+    }
+    &-item {
+      width: 33.33%;
+    }
+  }
+}

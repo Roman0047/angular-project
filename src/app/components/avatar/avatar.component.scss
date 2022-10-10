@@ -1,0 +1,11 @@
+.avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  &-icon {
+    height: 45px;
+    width: 45px;
+    font-size: 45px;
+  }
+}

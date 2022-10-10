@@ -1,0 +1,30 @@
+<div class="page-form">
+  <mat-card-title class="mb-20">Theme settings</mat-card-title>
+  <mat-card class="form-card">
+    <mat-form-field appearance="outline">
+      <mat-label>Font style</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let font of fontStyles" [value]="font.value">
+          {{ font.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Font size</mat-label>
+      <input matInput>
+    </mat-form-field>
+    <mat-form-field appearance="outline">
+      <mat-label>Font weight</mat-label>
+      <mat-select>
+        <mat-option *ngFor="let weight of fontWeights" [value]="weight.value">
+          {{ weight.title }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-card-subtitle class="mb-5">Background image</mat-card-subtitle>
+    <app-upload [small]="true"></app-upload>
+    <div class="form-card-button-right mt-20">
+      <button mat-raised-button color="primary">Save</button>
+    </div>
+  </mat-card>
+</div>
