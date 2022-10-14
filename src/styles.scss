@@ -1,5 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap');
+@import url('https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css');
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
@@ -32,6 +33,27 @@ $rules: (ml, margin-left), (mt, margin-top), (mb, margin-bottom), (mr, margin-ri
 
 @each $item in $rules {
   @include generate(nth($item, 1), nth($item, 2));
+}
+
+.mat-form-field {
+  &.isError {
+    .mat-form-field {
+      &-label, &-outline {
+        color: #f44336;
+      }
+    }
+  }
+  .error {
+    color: #f44336;
+  }
+}
+
+.toastify {
+  background: #c2185b;
+  box-shadow: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-radius: 4px;
 }
 
 .w {
