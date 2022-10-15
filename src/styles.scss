@@ -54,6 +54,10 @@ $rules: (ml, margin-left), (mt, margin-top), (mb, margin-bottom), (mr, margin-ri
   font-size: 14px;
   font-weight: 500;
   border-radius: 4px;
+
+  &.error {
+    background-color: #f44336;
+  }
 }
 
 .w {

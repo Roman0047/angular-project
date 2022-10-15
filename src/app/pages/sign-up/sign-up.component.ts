@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { UsersRepository } from '../../repository/users'
+import {AuthRepository} from '../../repository/auth'
 import * as Toastify from 'toastify-js'
 import { Router } from "@angular/router";
 
@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  constructor(private usersRepo: UsersRepository, private router: Router) { }
+  constructor(private authRepo: AuthRepository, private router: Router) { }
 
   hidePassword = true
   hideConfirmPassword = true
@@ -42,7 +42,7 @@ export class SignUpComponent implements OnInit {
 
   async signup() {
     try {
-      await this.usersRepo.create(this.form);
+      await this.authRepo.create(this.form);
       this.errors = {}
       Toastify({
         text: "Successfully registered",
@@ -55,7 +55,14 @@ export class SignUpComponent implements OnInit {
       if (error.response.data && error.response.data.message) {
         this.errors = {}
         error.response.data.message.forEach((item: any) => {
-          this.errors[item.field] = item.message;
+          if (
+            item.property === 'confirmPassword' &&
+            (!item.constraints.Match || Object.keys(item.constraints).length > 1)
+          ) {
+            this.errors[item.property] = 'Password confirmation ' + item.message.split(' ').slice(1).join(' ');
+          } else {
+            this.errors[item.property] = item.message.charAt(0).toUpperCase() + item.message.slice(1);
+          }
         })
       }
     }

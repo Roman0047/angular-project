@@ -48,7 +48,9 @@ import { SportPageComponent } from './pages/sport-page/sport-page.component';
 import {MatTableModule} from "@angular/material/table";
 import { FiltersComponent } from './components/filters/filters.component';
 import { AutocompleteSingleComponent } from './components/autocomplete-single/autocomplete-single.component';
-import {UsersRepository} from "./repository/users";
+import {AuthRepository} from "./repository/auth";
+import {AuthGuard} from "./guards/auth.guard";
+import {HomeGuard} from "./guards/home.guard";
 
 @NgModule({
   declarations: [
@@ -103,7 +105,7 @@ import {UsersRepository} from "./repository/users";
     MatCheckboxModule,
     MatTableModule
   ],
-  providers: [UsersRepository],
+  providers: [AuthRepository, AuthGuard, HomeGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,13 +1,14 @@
 <div class="page-form">
   <mat-card-title class="mb-20">Sign In</mat-card-title>
   <mat-card class="form-card">
-    <mat-form-field appearance="outline">
+    <mat-form-field [class]="{ isError: errors.email }" appearance="outline">
       <mat-label>Enter your email</mat-label>
-      <input matInput>
+      <input [(ngModel)]="form.email" matInput>
+      <mat-hint *ngIf="errors.email" class="error">{{ errors.email }}</mat-hint>
     </mat-form-field>
-    <mat-form-field appearance="outline">
+    <mat-form-field [class]="{ isError: errors.password }" appearance="outline">
       <mat-label>Enter your password</mat-label>
-      <input matInput [type]="hidePassword ? 'password' : 'text'">
+      <input [(ngModel)]="form.password" matInput [type]="hidePassword ? 'password' : 'text'">
       <button
         mat-icon-button
         matSuffix (click)="hidePassword = !hidePassword"
@@ -16,10 +17,11 @@
       >
         <mat-icon>{{hidePassword ? 'visibility_off' : 'visibility'}}</mat-icon>
       </button>
+      <mat-hint *ngIf="errors.password" class="error">{{ errors.password }}</mat-hint>
     </mat-form-field>
     <div class="form-card-buttons">
       <a mat-button color="accent" routerLink="/sign-up" routerLinkActive="active">Sign Up</a>
-      <button mat-raised-button color="primary">Sign In</button>
+      <button mat-raised-button color="primary" (click)="login()">Sign In</button>
     </div>
   </mat-card>
 </div>
