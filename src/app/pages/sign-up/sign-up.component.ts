@@ -52,7 +52,7 @@ export class SignUpComponent implements OnInit {
       }).showToast();
       await this.router.navigate(['/sign-in'])
     } catch (error: any) {
-      if (error.response.data && error.response.data.message) {
+      if (error.response.data && typeof error.response.data.message === 'object') {
         this.errors = {}
         error.response.data.message.forEach((item: any) => {
           if (
@@ -64,6 +64,16 @@ export class SignUpComponent implements OnInit {
             this.errors[item.property] = item.message.charAt(0).toUpperCase() + item.message.slice(1);
           }
         })
+      }
+
+      if (error.response.data && error.response.data.error === 'Bad Request') {
+        Toastify({
+          text: error.response.data.message,
+          duration: 2000,
+          gravity: "top",
+          position: "right",
+          className: "error",
+        }).showToast();
       }
     }
   }
