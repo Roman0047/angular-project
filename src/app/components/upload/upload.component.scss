@@ -5,6 +5,7 @@
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  position: relative;
   &-button {
     display: flex;
     align-items: center;
@@ -37,5 +38,15 @@
   }
   &-medium {
     height: 300px;
+  }
+  &.error {
+    border: 2px dashed #f44336;
+  }
+  .error {
+    position: absolute;
+    bottom: -24px;
+    color: #f44336;
+    font-size: 11px;
+    left: calc(1em - 2px);
   }
 }

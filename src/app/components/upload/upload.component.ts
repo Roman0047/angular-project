@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FilesRepository} from "../../repository/files";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-upload',
@@ -9,28 +10,21 @@ import {FilesRepository} from "../../repository/files";
 export class UploadComponent implements OnInit {
   @Input() small: any
   @Input() medium: any
+  @Input() file: any
+  @Input() error: any
   @Output() upload = new EventEmitter<any>();
-  file = ''
 
   constructor(private filesRepo: FilesRepository) { }
 
-  ngOnInit(): void {
+  apiUrl = environment.apiUrl
+
+  async uploadFile(event: any) {
+    let data = new FormData()
+    data.append(`file`, event.target.files[0])
+    const file = await this.filesRepo.upload(data)
+    this.upload.emit(file.path);
   }
 
-  async readURL(event: any) {
-    let files = event.target.files
-    if (files && files[0]) {
-      let reader = new FileReader();
-      reader.onload = (e) => {
-        // @ts-ignore
-        this.file = e.target && e.target.result
-      };
-      reader.readAsDataURL(files[0]);
-    }
-
-    let data = new FormData()
-    data.append(`file`, files[0])
-    const file = await this.filesRepo.upload(data)
-    console.log(file)
+  ngOnInit(): void {
   }
 }

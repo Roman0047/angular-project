@@ -1,7 +1,7 @@
 import { Component, OnInit } from "@angular/core";
 import {AuthRepository} from '../../repository/auth'
-import * as Toastify from 'toastify-js'
 import { Router } from "@angular/router";
+import {GlobalService} from "../../global.service";
 
 @Component({
   selector: 'app-sign-up',
@@ -9,7 +9,7 @@ import { Router } from "@angular/router";
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  constructor(private authRepo: AuthRepository, private router: Router) { }
+  constructor(private authRepo: AuthRepository, private router: Router, private globalService: GlobalService) { }
 
   hidePassword = true
   hideConfirmPassword = true
@@ -44,12 +44,7 @@ export class SignUpComponent implements OnInit {
     try {
       await this.authRepo.create(this.form);
       this.errors = {}
-      Toastify({
-        text: "Successfully registered",
-        duration: 2000,
-        gravity: "top",
-        position: "right",
-      }).showToast();
+      this.globalService.toast('Successfully registered')
       await this.router.navigate(['/sign-in'])
     } catch (error: any) {
       if (error.response.data && typeof error.response.data.message === 'object') {
@@ -67,13 +62,8 @@ export class SignUpComponent implements OnInit {
       }
 
       if (error.response.data && error.response.data.error === 'Bad Request') {
-        Toastify({
-          text: error.response.data.message,
-          duration: 2000,
-          gravity: "top",
-          position: "right",
-          className: "error",
-        }).showToast();
+        this.errors = {}
+        this.globalService.toast(error.response.data.message, 'error')
       }
     }
   }

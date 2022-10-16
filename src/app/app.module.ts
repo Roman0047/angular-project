@@ -54,6 +54,7 @@ import {HomeGuard} from "./guards/home.guard";
 import {AdminGuard} from "./guards/admin.guard";
 import {UserGuard} from "./guards/user.guard";
 import {FilesRepository} from "./repository/files";
+import {SportsRepository} from "./repository/sports";
 
 @NgModule({
   declarations: [
@@ -108,7 +109,7 @@ import {FilesRepository} from "./repository/files";
     MatCheckboxModule,
     MatTableModule,
   ],
-  providers: [AuthRepository, FilesRepository, AuthGuard, HomeGuard, AdminGuard, UserGuard],
+  providers: [AuthRepository, FilesRepository, SportsRepository, AuthGuard, HomeGuard, AdminGuard, UserGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

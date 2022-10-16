@@ -5,18 +5,25 @@
         <div class="w-100 center">
           <mat-card-title class="mb-30">New sport</mat-card-title>
         </div>
-        <app-upload [medium]="true"></app-upload>
-        <mat-form-field appearance="outline" class="mt-20">
-          <mat-label>Enter title</mat-label>
-          <input matInput>
+        <app-upload
+          [file]="sport.image"
+          [medium]="true"
+          [error]="sportErrors.image"
+          (upload)="sport.image = $event"
+        ></app-upload>
+        <mat-form-field [class]="{ isError: sportErrors.name }" appearance="outline" class="mt-20">
+          <mat-label>Enter sport name</mat-label>
+          <input [(ngModel)]="sport.name" matInput>
+          <mat-hint *ngIf="sportErrors.name" class="error">{{ sportErrors.name }}</mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field [class]="{ isError: sportErrors.description }" appearance="outline">
           <mat-label>Enter description</mat-label>
-          <textarea class="post-description" matInput></textarea>
+          <textarea [(ngModel)]="sport.description" class="post-description" matInput></textarea>
+          <mat-hint *ngIf="sportErrors.description" class="error">{{ sportErrors.description }}</mat-hint>
         </mat-form-field>
         <div class="sport-buttons">
           <a mat-button color="accent" routerLink="/sports">Cancel</a>
-          <button mat-raised-button color="primary">Save</button>
+          <button mat-raised-button color="primary" (click)="saveSport()">Save</button>
         </div>
       </div>
       <div class="sport-item">
@@ -25,7 +32,7 @@
         </div>
         <app-upload [medium]="true"></app-upload>
         <mat-form-field appearance="outline" class="mt-20">
-          <mat-label>Enter title</mat-label>
+          <mat-label>Enter trick name</mat-label>
           <input matInput>
         </mat-form-field>
         <mat-form-field appearance="outline">

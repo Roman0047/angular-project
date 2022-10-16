@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthRepository} from "../../repository/auth";
 import {Router} from "@angular/router";
-import * as Toastify from "toastify-js";
 import {AuthService} from "../../auth.service";
+import {GlobalService} from "../../global.service";
 
 @Component({
   selector: 'app-sign-in',
@@ -10,7 +10,12 @@ import {AuthService} from "../../auth.service";
   styleUrls: ['./sign-in.component.scss']
 })
 export class SignInComponent implements OnInit {
-  constructor(private authRepo: AuthRepository, private authService: AuthService, private router: Router) { }
+  constructor(
+    private authRepo: AuthRepository,
+    private authService: AuthService,
+    private router: Router,
+    private globalService: GlobalService
+  ) { }
 
   hidePassword = true
   form = {
@@ -24,12 +29,7 @@ export class SignInComponent implements OnInit {
       const user = await this.authRepo.login(this.form);
       this.errors = {}
       this.authService.saveUser(user)
-      Toastify({
-        text: "Successfully logged in",
-        duration: 2000,
-        gravity: "top",
-        position: "right",
-      }).showToast();
+      this.globalService.toast('Successfully logged in')
       await this.router.navigate(['/'])
     } catch (error: any) {
       if (error.response.data && typeof error.response.data.message === 'object') {
@@ -43,13 +43,7 @@ export class SignInComponent implements OnInit {
       }
 
       if (error.response.data && error.response.data.message === 'Unauthorized') {
-        Toastify({
-          text: "You've entered wrong credentials",
-          duration: 2000,
-          gravity: "top",
-          position: "right",
-          className: "error",
-        }).showToast();
+        this.globalService.toast('You\'ve entered wrong credentials', 'error')
       }
     }
   }
