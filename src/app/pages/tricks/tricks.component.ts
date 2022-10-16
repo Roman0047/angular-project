@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tricks.component.scss']
 })
 export class TricksComponent implements OnInit {
-  isAdmin = false; //todo replace with user role
+  constructor() {}
 
   panelOpenState = false;
 
@@ -29,8 +29,6 @@ export class TricksComponent implements OnInit {
       name: 'sport4',
     },
   ]
-
-  constructor() { }
 
   ngOnInit(): void {
   }

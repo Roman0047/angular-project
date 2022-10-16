@@ -3,13 +3,13 @@ import {CanActivate, Router} from "@angular/router";
 import {AuthService} from "../auth.service";
 
 @Injectable()
-export class AdminGuard implements CanActivate {
+export class UserGuard implements CanActivate {
   constructor(private authService: AuthService, private router: Router) { }
 
   async canActivate(): Promise<boolean> {
     await this.checkState();
-    if (this.authService.user?.role === 'admin') {
-      await this.router.navigate(["/sports"]);
+    if (this.authService.user?.role === 'user') {
+      await this.router.navigate(["/"]);
       return false;
     }
     return true;

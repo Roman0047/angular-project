@@ -52,6 +52,7 @@ import {AuthRepository} from "./repository/auth";
 import {AuthGuard} from "./guards/auth.guard";
 import {HomeGuard} from "./guards/home.guard";
 import {AdminGuard} from "./guards/admin.guard";
+import {UserGuard} from "./guards/user.guard";
 
 @NgModule({
   declarations: [
@@ -106,7 +107,7 @@ import {AdminGuard} from "./guards/admin.guard";
     MatCheckboxModule,
     MatTableModule
   ],
-  providers: [AuthRepository, AuthGuard, HomeGuard, AdminGuard],
+  providers: [AuthRepository, AuthGuard, HomeGuard, AdminGuard, UserGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

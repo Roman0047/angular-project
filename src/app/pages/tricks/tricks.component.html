@@ -12,7 +12,6 @@
       <div>
         <div class="level-easy">
           Easy
-          <button *ngIf="isAdmin" mat-icon-button color="primary">+</button>
         </div>
         <div class="tricks-list">
           <div class="tricks-list-item">
@@ -30,11 +29,9 @@
         </div>
         <div class="level-medium">
           Medium
-          <button *ngIf="isAdmin" mat-icon-button color="primary">+</button>
         </div>
         <div class="level-hard">
           Hard
-          <button *ngIf="isAdmin" mat-icon-button color="primary">+</button>
         </div>
       </div>
     </mat-expansion-panel>
@@ -47,28 +44,19 @@
       <div>
         <div class="level-easy">
           Easy
-          <button *ngIf="isAdmin" mat-icon-button color="primary">+</button>
         </div>
       </div>
     </mat-expansion-panel>
 
 
     <div class="add-sport">
-      <mat-form-field *ngIf="isAdmin; else userActions" appearance="fill">
-        <mat-label>Sport name</mat-label>
-        <input matInput>
-      </mat-form-field>
-      <ng-template #userActions>
-        <app-autocomplete-single
-          [options]="sports"
-          label="Add new sport"
-          appearance="fill"
-          (updateValue)="selectedSport = $event"
-        ></app-autocomplete-single>
-      </ng-template>
-      <button class="add-sport-button" mat-raised-button color="primary">
-        {{ isAdmin ? 'Create Sport' : 'Add' }}
-      </button>
+      <app-autocomplete-single
+        [options]="sports"
+        label="Add new sport"
+        appearance="fill"
+        (updateValue)="selectedSport = $event"
+      ></app-autocomplete-single>
+      <button class="add-sport-button" mat-raised-button color="primary">Add</button>
     </div>
   </div>
 </div>

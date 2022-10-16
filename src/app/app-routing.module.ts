@@ -17,6 +17,7 @@ import {SportPageComponent} from "./pages/sport-page/sport-page.component";
 import {HomeGuard} from "./guards/home.guard";
 import {AuthGuard} from "./guards/auth.guard";
 import {AdminGuard} from "./guards/admin.guard";
+import {UserGuard} from "./guards/user.guard";
 
 const routes: Routes = [
   { path: 'test-routing', component: TestRoutingComponent }, //TODO remove this line
@@ -31,10 +32,10 @@ const routes: Routes = [
   { path: 'user', component: UserComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'post', component: PostPageComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'sports-tricks', component: TricksComponent, canActivate: [AuthGuard] },
+  { path: 'sports-tricks', component: TricksComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'trick', component: TrickComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'sports', component: SportsComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'sport', component: SportPageComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'sports', component: SportsComponent, canActivate: [AuthGuard, UserGuard] },
+  { path: 'sport/:id', component: SportPageComponent, canActivate: [AuthGuard, UserGuard] },
 ];
 
 @NgModule({
