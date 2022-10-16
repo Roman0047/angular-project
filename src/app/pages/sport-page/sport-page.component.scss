@@ -20,6 +20,7 @@
 
 .sport {
   display: flex;
+  justify-content: center;
   margin-bottom: 20px;
   &-buttons {
     display: flex;
@@ -27,7 +28,7 @@
     justify-content: space-between;
   }
   &-item {
-    flex: 1;
+    width: calc(50% - 25px);
     display: flex;
     flex-direction: column;
   }

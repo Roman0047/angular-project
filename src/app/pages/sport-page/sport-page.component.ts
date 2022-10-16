@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {SportsRepository} from "../../repository/sports";
 import {GlobalService} from "../../global.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-sport-page',
@@ -8,11 +9,15 @@ import {GlobalService} from "../../global.service";
   styleUrls: ['./sport-page.component.scss']
 })
 export class SportPageComponent implements OnInit {
-  constructor(private sportsRepo: SportsRepository, private globalService: GlobalService) { }
+  constructor(
+    private sportsRepo: SportsRepository,
+    private globalService: GlobalService,
+    private router: Router
+  ) { }
 
   displayedColumns = ['image', 'name', 'description', 'id'];
 
-  sport = {
+  sport: any = {
     image: '',
     name: '',
     description: ''
@@ -36,7 +41,8 @@ export class SportPageComponent implements OnInit {
 
    async saveSport() {
     try {
-      const sport = await this.sportsRepo.create(this.sport);
+      this.sport = await this.sportsRepo.create(this.sport)
+      await this.router.navigate(['/sport', this.sport.id])
       this.sportErrors = {}
       this.globalService.toast('Saved')
     } catch (error: any) {
