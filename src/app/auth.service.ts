@@ -8,19 +8,23 @@ import axios from './infrastructure/axios';
 })
 export class AuthService {
   private _isLoggedIn$ = new BehaviorSubject(false)
-  private _user$ = new BehaviorSubject(null)
   isLoggedIn$ = this._isLoggedIn$.asObservable();
   isLoggedIn = false;
-  isUpdatedState = false;
+  private _user$ = new BehaviorSubject(null)
   user$ = this._user$.asObservable();
+  user: any = null;
+  isAdmin = false;
+
+  isUpdatedState = false;
 
   constructor(private authRepo: AuthRepository) {
     this.getProfile()
   }
 
-  saveUser(token: string) {
-    localStorage.setItem('token', token)
-    this.updateState(true)
+  saveUser(user: any) {
+    localStorage.setItem('token', user.access_token)
+    delete user.access_token;
+    this.updateState(true, user)
   }
 
   async getProfile() {
@@ -29,19 +33,24 @@ export class AuthService {
       axios.defaults.headers.common['Authorization'] = `Bearer ${token}`
       try {
         const profile = await this.authRepo.profile();
-        this._user$.next(profile);
-        this.updateState(true)
+        this.updateState(true, profile)
       } catch (error) {
-        this.updateState(false)
+        this.updateState(false, null)
       }
     } else {
-      this.updateState(false)
+      this.updateState(false, null)
     }
   }
 
-  updateState(state: boolean) {
+  updateState(state: boolean, user: any) {
     this._isLoggedIn$.next(state);
     this.isLoggedIn = state;
+    if (state && user) {
+      this._user$.next(user);
+      this.user = user;
+      this.isAdmin = this.user.role === 'admin'
+    }
+
     this.isUpdatedState = true
   }
 }

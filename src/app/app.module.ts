@@ -51,6 +51,7 @@ import { AutocompleteSingleComponent } from './components/autocomplete-single/au
 import {AuthRepository} from "./repository/auth";
 import {AuthGuard} from "./guards/auth.guard";
 import {HomeGuard} from "./guards/home.guard";
+import {AdminGuard} from "./guards/admin.guard";
 
 @NgModule({
   declarations: [
@@ -105,7 +106,7 @@ import {HomeGuard} from "./guards/home.guard";
     MatCheckboxModule,
     MatTableModule
   ],
-  providers: [AuthRepository, AuthGuard, HomeGuard],
+  providers: [AuthRepository, AuthGuard, HomeGuard, AdminGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

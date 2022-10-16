@@ -10,5 +10,5 @@
     </div>
   </div>
   <router-outlet></router-outlet>
-  <app-toolbar *ngIf='authService.isLoggedIn$ | async'></app-toolbar>
+  <app-toolbar *ngIf='(authService.isLoggedIn$ | async) && !authService.isAdmin'></app-toolbar>
 </div>

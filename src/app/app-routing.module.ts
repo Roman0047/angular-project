@@ -16,24 +16,25 @@ import {SportsComponent} from "./pages/sports/sports.component";
 import {SportPageComponent} from "./pages/sport-page/sport-page.component";
 import {HomeGuard} from "./guards/home.guard";
 import {AuthGuard} from "./guards/auth.guard";
+import {AdminGuard} from "./guards/admin.guard";
 
 const routes: Routes = [
   { path: 'test-routing', component: TestRoutingComponent }, //TODO remove this line
   { path: 'products', component: ProductsComponent }, //TODO remove this line
 
 
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: '', component: HomeComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'sign-in', component: SignInComponent, canActivate: [HomeGuard] },
   { path: 'sign-up', component: SignUpComponent, canActivate: [HomeGuard] },
-  { path: 'subscriptions', component: SubscriptionsComponent, canActivate: [AuthGuard] },
-  { path: 'new-post', component: NewPostComponent, canActivate: [AuthGuard] },
-  { path: 'user', component: UserComponent, canActivate: [AuthGuard] },
-  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard] },
-  { path: 'post', component: PostPageComponent, canActivate: [AuthGuard] },
-  { path: 'tricks', component: TricksComponent, canActivate: [AuthGuard] },
-  { path: 'trick', component: TrickComponent, canActivate: [AuthGuard] },
-  { path: 'sports', component: SportsComponent, canActivate: [AuthGuard] },
-  { path: 'sport', component: SportPageComponent, canActivate: [AuthGuard] },
+  { path: 'subscriptions', component: SubscriptionsComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'new-post', component: NewPostComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'user', component: UserComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'post', component: PostPageComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'sports-tricks', component: TricksComponent, canActivate: [AuthGuard] },
+  { path: 'trick', component: TrickComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'sports', component: SportsComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'sport', component: SportPageComponent, canActivate: [AuthGuard, AdminGuard] },
 ];
 
 @NgModule({

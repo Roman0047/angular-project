@@ -23,7 +23,7 @@ export class SignInComponent implements OnInit {
     try {
       const user = await this.authRepo.login(this.form);
       this.errors = {}
-      this.authService.saveUser(user.access_token)
+      this.authService.saveUser(user)
       Toastify({
         text: "Successfully logged in",
         duration: 2000,
