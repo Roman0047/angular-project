@@ -53,6 +53,7 @@ import {AuthGuard} from "./guards/auth.guard";
 import {HomeGuard} from "./guards/home.guard";
 import {AdminGuard} from "./guards/admin.guard";
 import {UserGuard} from "./guards/user.guard";
+import {FilesRepository} from "./repository/files";
 
 @NgModule({
   declarations: [
@@ -105,9 +106,9 @@ import {UserGuard} from "./guards/user.guard";
     MatExpansionModule,
     MatRadioModule,
     MatCheckboxModule,
-    MatTableModule
+    MatTableModule,
   ],
-  providers: [AuthRepository, AuthGuard, HomeGuard, AdminGuard, UserGuard],
+  providers: [AuthRepository, FilesRepository, AuthGuard, HomeGuard, AdminGuard, UserGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
