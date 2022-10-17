@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {SportsRepository} from "../../repository/sports";
 
 @Component({
   selector: 'app-sports',
@@ -6,10 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sports.component.scss']
 })
 export class SportsComponent implements OnInit {
+  constructor(private sportsRepo: SportsRepository) { }
+  sports = []
 
-  constructor() { }
-
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
+    this.sports = await this.sportsRepo.list();
   }
 
 }

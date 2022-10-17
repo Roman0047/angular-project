@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-sport',
@@ -6,8 +7,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sport.component.scss']
 })
 export class SportComponent implements OnInit {
-
   constructor() { }
+
+  @Input() sport: any = null
+
+  apiUrl = environment.apiUrl
 
   ngOnInit(): void {
   }

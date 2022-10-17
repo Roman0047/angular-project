@@ -2,7 +2,6 @@ import {Component, OnInit} from '@angular/core';
 import {SportsRepository} from "../../repository/sports";
 import {GlobalService} from "../../global.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {switchMap} from "rxjs";
 
 @Component({
   selector: 'app-sport-page',
@@ -57,7 +56,11 @@ export class SportPageComponent implements OnInit {
     this.route.paramMap.subscribe(async params => {
       const id = params.get('id');
       if (parseInt(<string>id) !== 0) {
-        this.sport = await this.sportsRepo.get(params.get('id'));
+        try {
+          this.sport = await this.sportsRepo.get(params.get('id'));
+        } catch (error) {
+          this.router.navigate(['/404'])
+        }
         this.isLoaded = true
       } else {
         this.isLoaded = true

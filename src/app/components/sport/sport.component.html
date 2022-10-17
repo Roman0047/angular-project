@@ -1,13 +1,13 @@
 <div class="post">
   <div class="post-inner">
     <div class="post-image-wrapper">
-      <img src="https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg" alt="post-image" routerLink="/sport" class="post-image">
+      <img [src]="apiUrl + sport.image" alt="post-image" [routerLink]="['/sport', sport.id]" class="post-image">
     </div>
     <div>
       <div class="post-title-wrapper">
-        <mat-card-title class="mb-0">Title</mat-card-title>
+        <mat-card-title class="mb-0">{{ sport.name }}</mat-card-title>
         <div>
-          <button mat-icon-button [routerLink]="['/sport', 1]">
+          <button mat-icon-button [routerLink]="['/sport', sport.id]">
             <mat-icon>edit</mat-icon>
           </button>
           <button mat-icon-button>
@@ -15,7 +15,7 @@
           </button>
         </div>
       </div>
-      <mat-card-subtitle class="mt-10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias animi aperiam commodi cumque ducimus.</mat-card-subtitle>
+      <mat-card-subtitle class="mt-10">{{ sport.description }}</mat-card-subtitle>
     </div>
   </div>
 </div>

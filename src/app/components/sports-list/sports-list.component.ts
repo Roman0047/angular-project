@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-sports-list',
@@ -6,8 +6,9 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sports-list.component.scss']
 })
 export class SportsListComponent implements OnInit {
-
   constructor() { }
+
+  @Input() sports: any[] = []
 
   ngOnInit(): void {
   }

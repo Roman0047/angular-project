@@ -55,6 +55,7 @@ import {AdminGuard} from "./guards/admin.guard";
 import {UserGuard} from "./guards/user.guard";
 import {FilesRepository} from "./repository/files";
 import {SportsRepository} from "./repository/sports";
+import { NotFoundComponent } from './pages/not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -85,7 +86,8 @@ import {SportsRepository} from "./repository/sports";
     SportComponent,
     SportPageComponent,
     FiltersComponent,
-    AutocompleteSingleComponent
+    AutocompleteSingleComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
