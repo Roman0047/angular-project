@@ -1,7 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {SportsRepository} from "../../repository/sports";
 import {GlobalService} from "../../global.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {switchMap} from "rxjs";
 
 @Component({
   selector: 'app-sport-page',
@@ -12,8 +13,10 @@ export class SportPageComponent implements OnInit {
   constructor(
     private sportsRepo: SportsRepository,
     private globalService: GlobalService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) { }
+  isLoaded = false
 
   displayedColumns = ['image', 'name', 'description', 'id'];
 
@@ -51,6 +54,15 @@ export class SportPageComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe(async params => {
+      const id = params.get('id');
+      if (parseInt(<string>id) !== 0) {
+        this.sport = await this.sportsRepo.get(params.get('id'));
+        this.isLoaded = true
+      } else {
+        this.isLoaded = true
+      }
+    })
   }
 
 }

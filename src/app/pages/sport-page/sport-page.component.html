@@ -1,5 +1,5 @@
 <div class="page">
-  <div class="page-inner mb-90">
+  <div *ngIf="isLoaded" class="page-inner mb-90">
     <div class="sport">
       <div class="sport-item" [class]="{ 'mr-50': sport.id }">
         <div class="w-100 center">
