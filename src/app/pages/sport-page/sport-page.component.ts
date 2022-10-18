@@ -43,8 +43,12 @@ export class SportPageComponent implements OnInit {
 
    async saveSport() {
     try {
-      this.sport = await this.sportsRepo.create(this.sport)
-      await this.router.navigate(['/sport', this.sport.id])
+      if (this.sport.id) {
+        this.sport = await this.sportsRepo.update(this.sport.id, this.sport)
+      } else {
+        this.sport = await this.sportsRepo.create(this.sport)
+        await this.router.navigate(['/sport', this.sport.id])
+      }
       this.sportErrors = {}
       this.globalService.toast('Saved')
     } catch (error: any) {
