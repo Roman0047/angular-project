@@ -1,7 +1,7 @@
 <div class="posts-list-wrapper">
   <div class="posts-list">
     <div *ngFor="let item of sports" class="posts-list-item">
-      <app-sport [sport]="item"></app-sport>
+      <app-sport [sport]="item" (updateList)="updateList.emit()"></app-sport>
     </div>
   </div>
 </div>

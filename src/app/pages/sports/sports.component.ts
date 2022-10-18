@@ -10,7 +10,11 @@ export class SportsComponent implements OnInit {
   constructor(private sportsRepo: SportsRepository) { }
   sports = []
 
-  async ngOnInit(): Promise<void> {
+  ngOnInit() {
+    this.getSports();
+  }
+
+  async getSports() {
     this.sports = await this.sportsRepo.list();
   }
 

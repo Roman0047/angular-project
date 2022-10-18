@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-sports-list',
@@ -8,6 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class SportsListComponent implements OnInit {
   constructor() { }
 
+  @Output() updateList = new EventEmitter<any>();
   @Input() sports: any[] = []
 
   ngOnInit(): void {

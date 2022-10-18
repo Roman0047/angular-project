@@ -4,7 +4,7 @@
       <mat-card-title class="mb-0">Sports</mat-card-title>
       <mat-icon class="sports-add" [routerLink]="['/sport', 0]">add_circle_outline</mat-icon>
     </div>
-    <app-sports-list [sports]="sports"></app-sports-list>
+    <app-sports-list [sports]="sports" (updateList)="getSports()"></app-sports-list>
   </div>
   <app-filters></app-filters>
 </div>

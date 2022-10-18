@@ -1,5 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {environment} from "../../../environments/environment";
+import {SportsRepository} from "../../repository/sports";
 
 @Component({
   selector: 'app-sport',
@@ -7,13 +8,18 @@ import {environment} from "../../../environments/environment";
   styleUrls: ['./sport.component.scss']
 })
 export class SportComponent implements OnInit {
-  constructor() { }
+  constructor(private sportsRepo: SportsRepository) { }
 
   @Input() sport: any = null
+  @Output() updateList = new EventEmitter<any>();
 
   apiUrl = environment.apiUrl
 
   ngOnInit(): void {
   }
 
+  async removeSport() {
+    await this.sportsRepo.remove(this.sport.id)
+    this.updateList.emit()
+  }
 }
