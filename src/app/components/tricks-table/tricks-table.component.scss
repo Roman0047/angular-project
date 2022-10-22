@@ -1,0 +1,47 @@
+
+.trick {
+  &-easy {
+    color: chartreuse;
+  }
+  &-medium {
+    color: yellow;
+  }
+  &-hard {
+    color: red;
+  }
+  &-image {
+    display: block;
+    height: 40px;
+  }
+  &-table {
+    margin-bottom: 20px;
+
+    .mat-column-image {
+      width: 30%;
+    }
+    .mat-column-name {
+      width: 30%;
+    }
+    .mat-column-description {
+      width: 40%;
+    }
+  }
+  &-action {
+    display: flex;
+    align-items: center;
+    &-title {
+      display: flex;
+      justify-content: center;
+    }
+  }
+  &-title {
+    display: flex;
+    align-items: center;
+    text-transform: capitalize;
+    .mat-icon {
+      cursor: pointer;
+      margin-right: 5px;
+      margin-bottom: 1px;
+    }
+  }
+}

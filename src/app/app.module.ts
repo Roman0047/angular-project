@@ -57,6 +57,7 @@ import {FilesRepository} from "./repository/files";
 import {SportsRepository} from "./repository/sports";
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import {TricksRepository} from "./repository/tricks";
+import { TricksTableComponent } from './components/tricks-table/tricks-table.component';
 
 @NgModule({
   declarations: [
@@ -88,7 +89,8 @@ import {TricksRepository} from "./repository/tricks";
     SportPageComponent,
     FiltersComponent,
     AutocompleteSingleComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    TricksTableComponent
   ],
   imports: [
     BrowserModule,

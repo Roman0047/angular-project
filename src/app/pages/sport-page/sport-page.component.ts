@@ -23,8 +23,6 @@ export class SportPageComponent implements OnInit {
 
   isLoaded = false
 
-  displayedColumns = ['image', 'name', 'description', 'id'];
-
   sport: any = {
     image: '',
     name: '',
