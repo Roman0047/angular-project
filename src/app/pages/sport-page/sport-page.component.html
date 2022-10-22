@@ -29,7 +29,7 @@
       <div *ngIf="sport.id" class="sport-item">
         <div class="w-100 center">
           <mat-card-title class="mb-30">
-            New
+            {{ trick.id ? 'Edit' : 'New' }}
             <span *ngIf="trick.complexity" [class]="'complexity-' + trick.complexity">
               {{ trick.complexity }}
             </span>
@@ -81,18 +81,30 @@
     <div *ngIf="sport.id">
       <app-tricks-table
         [tricks]="easyTricks"
+        [isTrickSelected]="!!trick.complexity"
+        [isEditMode]="!!trick.id"
         type="easy"
         (create)="trick.complexity = 'easy'"
+        (edit)="editTrick($event)"
+        (updateSport)="getSport(sport.id)"
       ></app-tricks-table>
       <app-tricks-table
         [tricks]="mediumTricks"
+        [isTrickSelected]="!!trick.complexity"
+        [isEditMode]="!!trick.id"
         type="medium"
         (create)="trick.complexity = 'medium'"
+        (edit)="editTrick($event)"
+        (updateSport)="getSport(sport.id)"
       ></app-tricks-table>
       <app-tricks-table
         [tricks]="hardTricks"
+        [isTrickSelected]="!!trick.complexity"
+        [isEditMode]="!!trick.id"
         type="hard"
         (create)="trick.complexity = 'hard'"
+        (edit)="editTrick($event)"
+        (updateSport)="getSport(sport.id)"
       ></app-tricks-table>
     </div>
   </div>

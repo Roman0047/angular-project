@@ -64,6 +64,7 @@ export class SportPageComponent implements OnInit {
           sport: this.sport
         })
       }
+      this.clearTrick()
       this.trickErrors = {}
       this.globalService.toast('Saved')
       await this.getSport(this.sport.id)
@@ -101,15 +102,19 @@ export class SportPageComponent implements OnInit {
     }
   }
 
+  editTrick(trick: any) {
+    this.trick = {...trick};
+  }
+
   get easyTricks() {
-     return this.sport.tricks.filter((item: any) => item.complexity === 'easy')
+     return this.sport ? this.sport.tricks.filter((item: any) => item.complexity === 'easy') : []
   }
 
   get mediumTricks() {
-    return this.sport.tricks.filter((item: any) => item.complexity === 'medium')
+    return this.sport ? this.sport.tricks.filter((item: any) => item.complexity === 'medium') : []
   }
 
   get hardTricks() {
-    return this.sport.tricks.filter((item: any) => item.complexity === 'hard')
+    return this.sport ? this.sport.tricks.filter((item: any) => item.complexity === 'hard') : []
   }
 }
