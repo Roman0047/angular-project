@@ -9,6 +9,15 @@
       Angular / Nest
     </div>
   </div>
+  <div
+    *ngIf="(authService.isLoggedIn$ | async) && authService.isAdmin"
+    class="app-logout"
+    (click)="authService.logout()"
+  >
+    <div class="app-logo-inner">
+      Logout
+    </div>
+  </div>
   <router-outlet></router-outlet>
   <app-toolbar *ngIf='(authService.isLoggedIn$ | async) && !authService.isAdmin'></app-toolbar>
 </div>

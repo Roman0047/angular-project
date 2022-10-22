@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject} from "rxjs";
 import {AuthRepository} from "./repository/auth";
 import axios from './infrastructure/axios';
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -17,12 +18,13 @@ export class AuthService {
 
   isUpdatedState = false;
 
-  constructor(private authRepo: AuthRepository) {
+  constructor(private authRepo: AuthRepository, private router: Router) {
     this.getProfile()
   }
 
   saveUser(user: any) {
     localStorage.setItem('token', user.access_token)
+    axios.defaults.headers.common['Authorization'] = `Bearer ${user.access_token}`
     delete user.access_token;
     this.updateState(true, user)
   }
@@ -49,8 +51,18 @@ export class AuthService {
       this._user$.next(user);
       this.user = user;
       this.isAdmin = this.user.role === 'admin'
+    } else {
+      this._user$.next(null);
+      this.user = null;
+      this.isAdmin = false
     }
 
     this.isUpdatedState = true
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+    this.updateState(false, null);
+    this.router.navigate(["/sign-in"]);
   }
 }
