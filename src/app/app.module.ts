@@ -56,6 +56,7 @@ import {UserGuard} from "./guards/user.guard";
 import {FilesRepository} from "./repository/files";
 import {SportsRepository} from "./repository/sports";
 import { NotFoundComponent } from './pages/not-found/not-found.component';
+import {TricksRepository} from "./repository/tricks";
 
 @NgModule({
   declarations: [
@@ -111,7 +112,16 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
     MatCheckboxModule,
     MatTableModule,
   ],
-  providers: [AuthRepository, FilesRepository, SportsRepository, AuthGuard, HomeGuard, AdminGuard, UserGuard],
+  providers: [
+    AuthRepository,
+    FilesRepository,
+    SportsRepository,
+    AuthGuard,
+    HomeGuard,
+    AdminGuard,
+    UserGuard,
+    TricksRepository
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

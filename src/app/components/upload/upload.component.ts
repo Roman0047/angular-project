@@ -12,6 +12,7 @@ export class UploadComponent implements OnInit {
   @Input() medium: any
   @Input() file: any
   @Input() error: any
+  @Input() disabled: any
   @Output() upload = new EventEmitter<any>();
 
   constructor(private filesRepo: FilesRepository) { }
@@ -26,5 +27,15 @@ export class UploadComponent implements OnInit {
   }
 
   ngOnInit(): void {
+  }
+
+  get fileType() {
+    if (this.file) {
+      const format = this.file.split('.').pop()
+      const videoFormats = ['mp4', 'mov', 'avi', 'flv', 'mkv', 'wmv', 'avchd', 'webm']
+      return videoFormats.find(item => item == format) ? 'video' : 'image'
+    } else {
+      return "image"
+    }
   }
 }

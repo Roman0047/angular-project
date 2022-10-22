@@ -170,3 +170,15 @@ body {
     }
   }
 }
+
+.complexity {
+  &-easy {
+    color: chartreuse;
+  }
+  &-medium {
+    color: yellow;
+  }
+  &-hard {
+    color: red;
+  }
+}

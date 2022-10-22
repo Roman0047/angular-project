@@ -22,40 +22,84 @@
           <mat-hint *ngIf="sportErrors.description" class="error">{{ sportErrors.description }}</mat-hint>
         </mat-form-field>
         <div class="sport-buttons">
-          <a mat-button color="accent" routerLink="/sports">Cancel</a>
+          <a mat-button color="accent" routerLink="/sports">{{ sport.id ? 'Back' : 'Cancel' }}</a>
           <button mat-raised-button color="primary" (click)="saveSport()">Save</button>
         </div>
       </div>
       <div *ngIf="sport.id" class="sport-item">
         <div class="w-100 center">
-          <mat-card-title class="mb-30">New trick</mat-card-title>
+          <mat-card-title class="mb-30">
+            New
+            <span *ngIf="trick.complexity" [class]="'complexity-' + trick.complexity">
+              {{ trick.complexity }}
+            </span>
+            trick
+          </mat-card-title>
         </div>
-        <app-upload [medium]="true"></app-upload>
-        <mat-form-field appearance="outline" class="mt-20">
+        <app-upload
+          [file]="trick.file"
+          [medium]="true"
+          [disabled]="!trick.complexity"
+          [error]="trickErrors.file"
+          (upload)="trick.file = $event"
+        ></app-upload>
+        <mat-form-field [class]="{ isError: trickErrors.name }" appearance="outline" class="mt-20">
           <mat-label>Enter trick name</mat-label>
-          <input matInput>
+          <input [(ngModel)]="trick.name" matInput [disabled]="!trick.complexity">
+          <mat-hint *ngIf="trickErrors.name" class="error">{{ trickErrors.name }}</mat-hint>
         </mat-form-field>
-        <mat-form-field appearance="outline">
+        <mat-form-field [class]="{ isError: trickErrors.description }" appearance="outline">
           <mat-label>Enter description</mat-label>
-          <textarea class="post-description" matInput></textarea>
+          <textarea
+            [(ngModel)]="trick.description"
+            class="post-description"
+            matInput
+            [disabled]="!trick.complexity"
+          ></textarea>
+          <mat-hint *ngIf="trickErrors.description" class="error">{{ trickErrors.description }}</mat-hint>
         </mat-form-field>
         <div class="sport-buttons">
-          <a mat-button color="accent">Cancel</a>
-          <button mat-raised-button color="primary">Save</button>
+          <a
+            mat-button
+            color="accent"
+            [disabled]="!trick.complexity"
+            (click)="clearTrick()"
+          >
+            Cancel
+          </a>
+          <button
+            mat-raised-button
+            color="primary"
+            [disabled]="!trick.complexity"
+            (click)="saveTrick()"
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>
     <div *ngIf="sport.id">
-      <table mat-table [dataSource]="tricks" class="trick-table">
+      <table mat-table [dataSource]="easyTricks" class="trick-table">
         <ng-container matColumnDef="image">
           <th mat-header-cell *matHeaderCellDef class="trick-easy">
             <div class="trick-title">
-              <mat-icon>add_circle_outline</mat-icon>
+              <mat-icon (click)="trick.complexity = 'easy'">add_circle_outline</mat-icon>
               Easy
             </div>
           </th>
           <td mat-cell *matCellDef="let element">
-            <img [src]="element.image" alt="post-image" class="trick-image">
+            <img
+              *ngIf="!globalService.isVideo(element.file)"
+              [src]="apiUrl + element.file"
+              alt="post-image"
+              class="trick-image"
+            >
+            <video
+              *ngIf="globalService.isVideo(element.file)"
+              [src]="apiUrl + element.file"
+              [muted]="true"
+              class="trick-image"
+            ></video>
           </td>
         </ng-container>
         <ng-container matColumnDef="name">
@@ -84,16 +128,27 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <table mat-table [dataSource]="tricks" class="trick-table mt-20">
+      <table mat-table [dataSource]="mediumTricks" class="trick-table mt-20">
         <ng-container matColumnDef="image">
           <th mat-header-cell *matHeaderCellDef class="trick-medium">
             <div class="trick-title">
-              <mat-icon>add_circle_outline</mat-icon>
+              <mat-icon (click)="trick.complexity = 'medium'">add_circle_outline</mat-icon>
               Medium
             </div>
           </th>
           <td mat-cell *matCellDef="let element">
-            <img [src]="element.image" alt="post-image" class="trick-image">
+            <img
+              *ngIf="!globalService.isVideo(element.file)"
+              [src]="apiUrl + element.file"
+              alt="post-image"
+              class="trick-image"
+            >
+            <video
+              *ngIf="globalService.isVideo(element.file)"
+              [src]="apiUrl + element.file"
+              [muted]="true"
+              class="trick-image"
+            ></video>
           </td>
         </ng-container>
         <ng-container matColumnDef="name">
@@ -122,16 +177,27 @@
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
       </table>
-      <table mat-table [dataSource]="tricks" class="trick-table mt-20">
+      <table mat-table [dataSource]="hardTricks" class="trick-table mt-20">
         <ng-container matColumnDef="image">
           <th mat-header-cell *matHeaderCellDef class="trick-hard">
             <div class="trick-title">
-              <mat-icon>add_circle_outline</mat-icon>
+              <mat-icon (click)="trick.complexity = 'hard'">add_circle_outline</mat-icon>
               Hard
             </div>
           </th>
           <td mat-cell *matCellDef="let element">
-            <img [src]="element.image" alt="post-image" class="trick-image">
+            <img
+              *ngIf="!globalService.isVideo(element.file)"
+              [src]="apiUrl + element.file"
+              alt="post-image"
+              class="trick-image"
+            >
+            <video
+              *ngIf="globalService.isVideo(element.file)"
+              [src]="apiUrl + element.file"
+              [muted]="true"
+              class="trick-image"
+            ></video>
           </td>
         </ng-container>
         <ng-container matColumnDef="name">

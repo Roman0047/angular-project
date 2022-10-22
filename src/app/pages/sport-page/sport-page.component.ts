@@ -2,6 +2,8 @@ import {Component, OnInit} from '@angular/core';
 import {SportsRepository} from "../../repository/sports";
 import {GlobalService} from "../../global.service";
 import {ActivatedRoute, Router} from "@angular/router";
+import {TricksRepository} from "../../repository/tricks";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-sport-page',
@@ -11,10 +13,14 @@ import {ActivatedRoute, Router} from "@angular/router";
 export class SportPageComponent implements OnInit {
   constructor(
     private sportsRepo: SportsRepository,
-    private globalService: GlobalService,
+    private tricksRepo: TricksRepository,
+    public globalService: GlobalService,
     private router: Router,
     private route: ActivatedRoute
   ) { }
+
+  apiUrl = environment.apiUrl
+
   isLoaded = false
 
   displayedColumns = ['image', 'name', 'description', 'id'];
@@ -24,22 +30,16 @@ export class SportPageComponent implements OnInit {
     name: '',
     description: ''
   }
-  sportErrors: any = {}
 
-  tricks = [
-    {
-      image: 'https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg',
-      name: 'Hydrogen',
-      description: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. Animi architecto exercitationem iure laudantium',
-      id: 1
-    },
-    {
-      image: 'https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg',
-      name: 'Helium',
-      description: 'test',
-      id: 2
-    },
-  ];
+  trick: any = {
+    file: '',
+    name: '',
+    description: '',
+    complexity: null,
+  }
+
+  sportErrors: any = {}
+  trickErrors: any = {}
 
    async saveSport() {
     try {
@@ -56,20 +56,62 @@ export class SportPageComponent implements OnInit {
     }
   }
 
-  ngOnInit(): void {
-    this.route.paramMap.subscribe(async params => {
-      const id = params.get('id');
-      if (parseInt(<string>id) !== 0) {
-        try {
-          this.sport = await this.sportsRepo.get(params.get('id'));
-        } catch (error) {
-          this.router.navigate(['/404'])
-        }
-        this.isLoaded = true
+  async saveTrick() {
+    try {
+      if (this.trick.id) {
+        this.trick = await this.tricksRepo.update(this.trick.id, this.trick)
       } else {
-        this.isLoaded = true
+        this.trick = await this.tricksRepo.create({
+          ...this.trick,
+          sport: this.sport
+        })
       }
+      this.trickErrors = {}
+      this.globalService.toast('Saved')
+      await this.getSport(this.sport.id)
+    } catch (error: any) {
+      this.trickErrors = this.globalService.getValidationErrors(error);
+    }
+  }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id');
+      this.getSport(id)
     })
   }
 
+  async getSport(id: string | null) {
+    if (parseInt(<string>id) !== 0) {
+      try {
+        this.sport = await this.sportsRepo.get(id);
+      } catch (error) {
+        this.router.navigate(['/404'])
+      }
+      this.isLoaded = true
+    } else {
+      this.isLoaded = true
+    }
+  }
+
+  clearTrick() {
+    this.trick = {
+      file: '',
+      name: '',
+      description: '',
+      complexity: null,
+    }
+  }
+
+  get easyTricks() {
+     return this.sport.tricks.filter((item: any) => item.complexity === 'easy')
+  }
+
+  get mediumTricks() {
+    return this.sport.tricks.filter((item: any) => item.complexity === 'medium')
+  }
+
+  get hardTricks() {
+    return this.sport.tricks.filter((item: any) => item.complexity === 'hard')
+  }
 }

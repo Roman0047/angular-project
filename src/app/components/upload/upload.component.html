@@ -1,7 +1,24 @@
-<div class="upload" [ngClass]="{'upload-small': small, 'upload-medium': medium, error }" (click)="upload.click()">
-  <img *ngIf="file" [src]="apiUrl + file" class="upload-image" alt="upload">
-  <input type="file" style="display: none" #upload (change)="uploadFile($event)">
-  <button *ngIf="!file" mat-fab color="basic" class="upload-button">
+<div
+  class="upload"
+  [ngClass]="{'upload-small': small, 'upload-medium': medium, error, 'disabled': disabled }"
+  (click)="upload.click()"
+>
+  <video
+    *ngIf="file && fileType === 'video'"
+    class="upload-video"
+    [src]="apiUrl + file"
+    autoplay
+    [muted]="true"
+    loop
+  ></video>
+  <img
+    *ngIf="file && fileType === 'image'"
+    [src]="apiUrl + file"
+    class="upload-image"
+    alt="upload"
+  >
+  <input type="file" style="display: none" #upload (change)="uploadFile($event)" [disabled]="disabled">
+  <button *ngIf="!file" mat-fab color="basic" class="upload-button" [disabled]="disabled">
     <mat-icon class="upload-button-icon">upload</mat-icon>
   </button>
   <mat-hint *ngIf="error" class="error">{{ error }}</mat-hint>

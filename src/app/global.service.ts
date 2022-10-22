@@ -26,4 +26,14 @@ export class GlobalService {
       return errors
     }
   }
+
+  isVideo(file: any) {
+    if (file) {
+      const format = file.split('.').pop()
+      const videoFormats = ['mp4', 'mov', 'avi', 'flv', 'mkv', 'wmv', 'avchd', 'webm']
+      return videoFormats.find(item => item == format)
+    } else {
+      return false
+    }
+  }
 }
