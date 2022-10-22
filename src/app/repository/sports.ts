@@ -3,8 +3,8 @@ import axios from '../infrastructure/axios';
 
 @Injectable()
 export class SportsRepository {
-  async list() {
-    const res = await axios.get('/sports')
+  async list(params: any) {
+    const res = await axios.get('/sports', { params })
     return res.data;
   }
   async create(data: any) {

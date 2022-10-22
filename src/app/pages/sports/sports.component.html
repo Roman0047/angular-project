@@ -6,5 +6,5 @@
     </div>
     <app-sports-list [sports]="sports" (updateList)="getSports()"></app-sports-list>
   </div>
-  <app-filters></app-filters>
+  <app-filters [isAdminSports]="true" (search)="search($event)"></app-filters>
 </div>

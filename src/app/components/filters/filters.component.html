@@ -6,8 +6,22 @@
       <mat-divider class="filters-divider"></mat-divider>
     </div>
     <div class="filters-fields">
-      <app-autocomplete [options]="sports" (setOptions)="selectSports($event)" label="Search by sports"></app-autocomplete>
-      <app-autocomplete [options]="sports" (setOptions)="selectSports($event)" label="Search by tricks"></app-autocomplete>
+      <mat-form-field *ngIf="isAdminSports" class="filters-input" appearance="outline">
+        <mat-label>Search</mat-label>
+        <input matInput (input)="search.emit($event)">
+      </mat-form-field>
+      <app-autocomplete
+        *ngIf="!isAdminSports"
+        [options]="sports"
+        (setOptions)="selectSports($event)"
+        label="Search by sports"
+      ></app-autocomplete>
+      <app-autocomplete
+        *ngIf="!isAdminSports"
+        [options]="sports"
+        (setOptions)="selectSports($event)"
+        label="Search by tricks"
+      ></app-autocomplete>
     </div>
   </div>
 </div>

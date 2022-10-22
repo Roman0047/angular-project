@@ -46,6 +46,11 @@
     overflow: hidden;
     margin-top: 34px;
   }
+  &-input {
+    ::ng-deep .mat-form-field-wrapper{
+      margin-bottom: -1.25em;
+    }
+  }
   &-divider {
     border-top: 2px white solid;
     margin-bottom: 7px;

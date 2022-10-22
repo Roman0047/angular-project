@@ -9,13 +9,19 @@ import {SportsRepository} from "../../repository/sports";
 export class SportsComponent implements OnInit {
   constructor(private sportsRepo: SportsRepository) { }
   sports = []
+  searchPhrase = ''
 
   ngOnInit() {
     this.getSports();
   }
 
   async getSports() {
-    this.sports = await this.sportsRepo.list();
+    this.sports = await this.sportsRepo.list({ search: this.searchPhrase });
+  }
+
+  search(event: any) {
+    this.searchPhrase = event.target.value;
+    this.getSports();
   }
 
 }
