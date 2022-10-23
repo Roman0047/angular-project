@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {SportsRepository} from "../../repository/sports";
+import {GlobalService} from "../../global.service";
+import {PostsRepository} from "../../repository/posts";
 
 @Component({
   selector: 'app-new-post',
@@ -6,49 +9,37 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./new-post.component.scss']
 })
 export class NewPostComponent implements OnInit {
-  form = {
-    sport: {},
-    trick: {},
+  constructor(
+    private sportsRepo: SportsRepository,
+    private postsRepo: PostsRepository,
+    public globalService: GlobalService
+  ) { }
+  form: any = {
+    title: '',
+    description: '',
+    file: null,
+    sport: null,
+    trick: null,
   }
-  sports = [
-    {
-      id: 1,
-      name: 'sport1',
-    },
-    {
-      id: 2,
-      name: 'sport2',
-    },
-    {
-      id: 3,
-      name: 'sport3',
-    },
-    {
-      id: 4,
-      name: 'sport4',
-    },
-  ]
-  tricks = [
-    {
-      id: 1,
-      name: 'trick1',
-    },
-    {
-      id: 2,
-      name: 'trick2',
-    },
-    {
-      id: 3,
-      name: 'trick3',
-    },
-    {
-      id: 4,
-      name: 'trick4',
-    },
-  ]
-  constructor() { }
+  sports = []
+  errors: any = {}
 
-  ngOnInit(): void {
+  ngOnInit() {
+    this.getSports();
+  }
+
+  async getSports() {
+    this.sports = await this.sportsRepo.list({ tricks: true });
+  }
+
+  async createPost() {
+    try {
+      await this.postsRepo.create(this.form)
+      this.errors = {}
+      this.globalService.toast('Saved')
+    } catch (error: any) {
+      this.errors = this.globalService.getValidationErrors(error);
+    }
   }
 
 }

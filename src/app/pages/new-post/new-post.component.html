@@ -3,21 +3,30 @@
     <div class="w-100 center">
       <mat-card-title class="mb-30">Upload new post</mat-card-title>
     </div>
-    <app-upload></app-upload>
+    <app-upload
+      [file]="form.file"
+      [error]="errors.file"
+      (upload)="form.file = $event"
+    ></app-upload>
     <div class="post-info">
       <div class="post-fields">
-        <mat-form-field appearance="outline">
+        <mat-form-field [class]="{ isError: errors.title }" appearance="outline">
           <mat-label>Enter title</mat-label>
-          <input matInput>
+          <input [(ngModel)]="form.title" matInput/>
+          <mat-hint *ngIf="errors.title" class="error">{{ errors.title }}</mat-hint>
         </mat-form-field>
-<!--        <app-autocomplete-->
-<!--          [options]="sports"-->
-<!--          (setOptions)="form.sports = $event"-->
-<!--          label="Enter the sports that this post is about"-->
-<!--        ></app-autocomplete>-->
       </div>
-      <button mat-raised-button color="primary" class="post-upload">Upload</button>
+      <button mat-raised-button color="primary" class="post-upload" (click)="createPost()">Upload</button>
     </div>
+    <mat-form-field [class]="{ isError: errors.description }" appearance="outline">
+      <mat-label>Enter description</mat-label>
+      <textarea
+        [(ngModel)]="form.description"
+        class="post-description"
+        matInput
+      ></textarea>
+      <mat-hint *ngIf="errors.description" class="error">{{ errors.description }}</mat-hint>
+    </mat-form-field>
     <div class="sport-fields">
       <app-autocomplete-single
         [options]="sports"
@@ -26,15 +35,12 @@
         (updateValue)="form.sport = $event"
       ></app-autocomplete-single>
       <app-autocomplete-single
-        [options]="tricks"
+        *ngIf="form.sport && form.sport.tricks.length"
+        [options]="form.sport.tricks"
         label="Enter the trick that this post is about"
         appearance="outline"
         (updateValue)="form.trick = $event"
       ></app-autocomplete-single>
     </div>
-    <mat-form-field appearance="outline">
-      <mat-label>Enter description</mat-label>
-      <textarea class="post-description" matInput></textarea>
-    </mat-form-field>
   </div>
 </div>

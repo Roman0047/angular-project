@@ -24,7 +24,7 @@
     margin-right: 20px;
   }
   app-autocomplete-single {
-    width: 100%;
+    width: calc(50% - 10px);
   }
   ::ng-deep {
     .mat-form-field {

@@ -59,6 +59,7 @@ import { NotFoundComponent } from './pages/not-found/not-found.component';
 import {TricksRepository} from "./repository/tricks";
 import { TricksTableComponent } from './components/tricks-table/tricks-table.component';
 import {ThemeRepository} from "./repository/theme";
+import {PostsRepository} from "./repository/posts";
 
 @NgModule({
   declarations: [
@@ -124,7 +125,8 @@ import {ThemeRepository} from "./repository/theme";
     AdminGuard,
     UserGuard,
     TricksRepository,
-    ThemeRepository
+    ThemeRepository,
+    PostsRepository
   ],
   bootstrap: [AppComponent]
 })
