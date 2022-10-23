@@ -32,7 +32,7 @@
         [options]="sports"
         label="Enter the sport that this post is about"
         appearance="outline"
-        (updateValue)="form.sport = $event"
+        (updateValue)="updateSport($event)"
       ></app-autocomplete-single>
       <app-autocomplete-single
         *ngIf="form.sport && form.sport.tricks.length"

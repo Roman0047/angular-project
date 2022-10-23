@@ -45,4 +45,8 @@ export class NewPostComponent implements OnInit {
     }
   }
 
+  updateSport(sport: any) {
+    this.form.sport = sport
+    this.form.trick = null
+  }
 }
