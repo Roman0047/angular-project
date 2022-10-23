@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {SportsRepository} from "../../repository/sports";
 import {GlobalService} from "../../global.service";
 import {PostsRepository} from "../../repository/posts";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-new-post',
@@ -12,7 +13,8 @@ export class NewPostComponent implements OnInit {
   constructor(
     private sportsRepo: SportsRepository,
     private postsRepo: PostsRepository,
-    public globalService: GlobalService
+    public globalService: GlobalService,
+    private router: Router
   ) { }
   form: any = {
     title: '',
@@ -37,6 +39,7 @@ export class NewPostComponent implements OnInit {
       await this.postsRepo.create(this.form)
       this.errors = {}
       this.globalService.toast('Saved')
+      await this.router.navigate(["/"]);
     } catch (error: any) {
       this.errors = this.globalService.getValidationErrors(error);
     }

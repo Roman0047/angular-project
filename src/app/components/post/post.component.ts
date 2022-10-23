@@ -1,4 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {GlobalService} from "../../global.service";
+import {environment} from "../../../environments/environment";
 
 @Component({
   selector: 'app-post',
@@ -6,9 +8,12 @@ import {Component, Input, OnInit} from '@angular/core';
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
-  @Input() small: any
+  constructor(public globalService: GlobalService) { }
 
-  constructor() { }
+  apiUrl = environment.apiUrl
+
+  @Input() small: any
+  @Input() post: any
 
   ngOnInit(): void {
   }
