@@ -3,28 +3,20 @@
   <mat-card class="form-card">
     <mat-form-field appearance="outline">
       <mat-label>Font style</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let font of fontStyles" [value]="font.value">
-          {{ font.title }}
-        </mat-option>
-      </mat-select>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Font size</mat-label>
-      <input matInput>
-    </mat-form-field>
-    <mat-form-field appearance="outline">
-      <mat-label>Font weight</mat-label>
-      <mat-select>
-        <mat-option *ngFor="let weight of fontWeights" [value]="weight.value">
-          {{ weight.title }}
+      <mat-select [(ngModel)]="form.font">
+        <mat-option *ngFor="let item of fontStyles" [value]="item.value">
+          {{ item.title }}
         </mat-option>
       </mat-select>
     </mat-form-field>
     <mat-card-subtitle class="mb-5">Background image</mat-card-subtitle>
-    <app-upload [small]="true"></app-upload>
+    <app-upload
+      [small]="true"
+      [file]="form.backgroundImage"
+      (upload)="form.backgroundImage = $event"
+    ></app-upload>
     <div class="form-card-button-right mt-20">
-      <button mat-raised-button color="primary">Save</button>
+      <button mat-raised-button color="primary" (click)="save()">Save</button>
     </div>
   </mat-card>
 </div>

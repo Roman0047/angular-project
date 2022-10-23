@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../auth.service";
+import {ThemeRepository} from "../../repository/theme";
+import {GlobalService} from "../../global.service";
 
 @Component({
   selector: 'app-settings',
@@ -6,17 +9,33 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./settings.component.scss']
 })
 export class SettingsComponent implements OnInit {
+  constructor(
+    public authService: AuthService,
+    private themeRepo: ThemeRepository,
+    public globalService: GlobalService
+  ) {}
+
+  form = {
+    font: this.authService.user.theme.font,
+    backgroundImage: this.authService.user.theme.backgroundImage
+  }
+
   fontStyles = [
-    {value: 'Inner', title: 'Inner'},
+    {value: 'Arial', title: 'Arial'},
     {value: 'Roboto', title: 'Roboto'},
-  ];
-  fontWeights = [
-    {value: '400', title: '400'},
-    {value: '500', title: '500'},
-    {value: '600', title: '600'},
+    {value: 'Verdana', title: 'Verdana'},
+    {value: 'Georgia', title: 'Georgia'},
   ];
 
-  constructor() { }
+  async save() {
+    try {
+      this.form = await this.themeRepo.update(this.authService.user.theme.id, this.form)
+      this.globalService.toast('Saved')
+      await this.authService.getProfile()
+    } catch (error: any) {
+      this.globalService.toast('Something went wrong')
+    }
+  }
 
   ngOnInit(): void {
   }

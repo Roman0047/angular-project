@@ -58,6 +58,7 @@ import {SportsRepository} from "./repository/sports";
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import {TricksRepository} from "./repository/tricks";
 import { TricksTableComponent } from './components/tricks-table/tricks-table.component';
+import {ThemeRepository} from "./repository/theme";
 
 @NgModule({
   declarations: [
@@ -122,7 +123,8 @@ import { TricksTableComponent } from './components/tricks-table/tricks-table.com
     HomeGuard,
     AdminGuard,
     UserGuard,
-    TricksRepository
+    TricksRepository,
+    ThemeRepository
   ],
   bootstrap: [AppComponent]
 })

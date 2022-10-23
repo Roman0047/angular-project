@@ -3,6 +3,7 @@ import {BehaviorSubject} from "rxjs";
 import {AuthRepository} from "./repository/auth";
 import axios from './infrastructure/axios';
 import {Router} from "@angular/router";
+import {environment} from "../environments/environment";
 
 @Injectable({
   providedIn: 'root'
@@ -51,6 +52,8 @@ export class AuthService {
       this._user$.next(user);
       this.user = user;
       this.isAdmin = this.user.role === 'admin'
+
+      this.setTheme()
     } else {
       this._user$.next(null);
       this.user = null;
@@ -58,6 +61,20 @@ export class AuthService {
     }
 
     this.isUpdatedState = true
+  }
+
+  setTheme() {
+    if (this.user.theme.backgroundImage) {
+      document.body.style.backgroundImage =
+        `url('${environment.apiUrl + this.user.theme.backgroundImage.split('\\').join('/')}')`
+    }
+    if (this.user.theme.font) {
+      document.head.insertAdjacentHTML("beforeend", `<style>
+        * {
+         font-family: "${this.user.theme.font}", "Helvetica Neue", sans-serif;
+        }
+      </style>`)
+    }
   }
 
   logout() {
