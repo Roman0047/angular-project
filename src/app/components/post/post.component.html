@@ -1,6 +1,22 @@
 <div class="post">
   <div class="post-image-wrapper" [ngClass]="{'post-image-wrapper-small': small}">
-    <mat-card-title *ngIf="small" class="post-label mb-0" routerLink="/post">Title</mat-card-title>
+    <mat-card-title *ngIf="small" class="post-label mb-0" routerLink="/post">{{ post.title }}</mat-card-title>
+    <img
+      *ngIf="!globalService.isVideo(post.file)"
+      [src]="apiUrl + post.file"
+      alt="post-image"
+      class="post-image"
+      routerLink="/post"
+    >
+    <video
+      *ngIf="globalService.isVideo(post.file)"
+      [src]="apiUrl + post.file"
+      [muted]="true"
+      class="post-image"
+      autoplay
+      loop
+      routerLink="/post"
+    ></video>
     <div *ngIf="!small">
       <div class="post-avatar">
         <app-avatar></app-avatar>
@@ -28,22 +44,6 @@
         </button>
       </div>
     </div>
-    <img
-      *ngIf="!globalService.isVideo(post.file)"
-      [src]="apiUrl + post.file"
-      alt="post-image"
-      class="post-image"
-      routerLink="/post"
-    >
-    <video
-      *ngIf="globalService.isVideo(post.file)"
-      [src]="apiUrl + post.file"
-      [muted]="true"
-      class="post-image"
-      autoplay
-      loop
-      routerLink="/post"
-    ></video>
   </div>
   <div *ngIf="!small">
     <div class="post-title-wrapper">
