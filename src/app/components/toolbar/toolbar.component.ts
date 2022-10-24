@@ -23,7 +23,7 @@ export class ToolbarComponent implements OnInit {
     },
     {
       icon: 'account_circle',
-      link: '/user'
+      link: '/profile'
     },
     {
       icon: 'settings',

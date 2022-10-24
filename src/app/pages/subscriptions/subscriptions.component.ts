@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {PostsRepository} from "../../repository/posts";
 
 @Component({
   selector: 'app-subscriptions',
@@ -6,10 +7,19 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./subscriptions.component.scss']
 })
 export class SubscriptionsComponent implements OnInit {
+  constructor(private postsRepo: PostsRepository) { }
 
-  constructor() { }
+  posts = []
 
-  ngOnInit(): void {
+  async getPosts() {
+    this.posts = await this.postsRepo.list({
+      sport: true,
+      trick: true,
+      user: true
+    });
   }
 
+  ngOnInit(): void {
+    this.getPosts()
+  }
 }

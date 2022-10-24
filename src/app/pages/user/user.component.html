@@ -1,7 +1,7 @@
 <div class="page">
   <div class="page-inner mb-90">
     <div class="w-100 center">
-      <mat-card-title class="mb-30">User</mat-card-title>
+      <mat-card-title class="mb-30">{{ isProfile ? 'Profile' : 'User' }}</mat-card-title>
     </div>
     <div class="user-info-wrapper">
       <div class="user-info">
@@ -16,19 +16,19 @@
           </div>
         </div>
         <div class="user-info-data">
-          <div>Name: test</div>
+          <div>Name: {{ isProfile ? authService.user.name : 'other user name todo' }}</div>
           <div>User sport types:</div>
           <div>test / test1 / test2</div>
           <div>Subscription count: test</div>
-          <div>Posts count: test</div>
+          <div>Posts: {{ posts.length }}</div>
         </div>
         <button *ngIf="!isProfile" mat-raised-button color="primary" class="mr-10">Subscribe</button>
         <div *ngIf="isProfile" class="user-buttons">
           <button mat-raised-button color="base" routerLink="/sports-tricks">Update sports and tricks</button>
-          <button mat-raised-button color="base">Logout</button>
+          <button mat-raised-button color="base" (click)="authService.logout()">Logout</button>
         </div>
       </div>
     </div>
-    <app-posts-list></app-posts-list>
+    <app-posts-list [posts]="posts"></app-posts-list>
   </div>
 </div>

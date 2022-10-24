@@ -3,8 +3,11 @@
     <div class="w-100 center">
       <mat-card-title class="mb-30">Subscriptions</mat-card-title>
     </div>
-    <app-post></app-post>
-    <app-post class="mt-20"></app-post>
+    <app-post
+      *ngFor="let item of posts; let i = index"
+      [post]="item"
+      [class]="i > 0 ? 'mt-40' : ''"
+    ></app-post>
   </div>
   <app-filters></app-filters>
 </div>

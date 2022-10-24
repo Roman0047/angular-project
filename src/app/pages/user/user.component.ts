@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {PostsRepository} from "../../repository/posts";
+import {Router} from "@angular/router";
+import {AuthService} from "../../auth.service";
 
 @Component({
   selector: 'app-user',
@@ -6,11 +9,18 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements OnInit {
-  isProfile = true;
+  constructor(private postsRepo: PostsRepository, private router: Router, public authService: AuthService) { }
 
-  constructor() { }
+  posts = []
+  isProfile = this.router.url === '/profile';
 
-  ngOnInit(): void {
+  async getPosts() {
+    this.posts = await this.postsRepo.list({
+      isCurrentUser: true
+    });
   }
 
+  ngOnInit(): void {
+    this.getPosts()
+  }
 }

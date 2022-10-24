@@ -1,31 +1,7 @@
 <div class="posts-list-wrapper">
   <div class="posts-list">
-    <div class="posts-list-item">
-      <app-post [small]="true"></app-post>
-    </div>
-    <div class="posts-list-item">
-      <app-post [small]="true"></app-post>
-    </div>
-    <div class="posts-list-item">
-      <app-post [small]="true"></app-post>
-    </div>
-    <div class="posts-list-item">
-      <app-post [small]="true"></app-post>
-    </div>
-    <div class="posts-list-item">
-      <app-post [small]="true"></app-post>
-    </div>
-    <div class="posts-list-item">
-      <app-post [small]="true"></app-post>
-    </div>
-    <div class="posts-list-item">
-      <app-post [small]="true"></app-post>
-    </div>
-    <div class="posts-list-item">
-      <app-post [small]="true"></app-post>
-    </div>
-    <div class="posts-list-item">
-      <app-post [small]="true"></app-post>
+    <div *ngFor="let item of posts" class="posts-list-item">
+      <app-post [post]="item" [small]="true"></app-post>
     </div>
   </div>
 </div>
