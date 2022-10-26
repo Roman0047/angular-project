@@ -12,11 +12,40 @@
         </div>
         <div *ngIf="isProfile" class="user-avatar-upload">
           <div class="user-avatar-upload-inner">
-            <app-upload [small]="true"></app-upload>
+            <app-upload [file]="form.avatar" [small]="true" (upload)="setAvatar($event)"></app-upload>
           </div>
         </div>
         <div class="user-info-data">
-          <div>Name: {{ isProfile ? authService.user.name : 'other user name todo' }}</div>
+          <div class="user-info-container">
+            Name:&nbsp;
+            <span *ngIf="!isEditNameMode">{{ isProfile ? form.name : 'other user name todo' }}</span>
+            <input
+              *ngIf="isEditNameMode"
+              [(ngModel)]="form.name"
+              class="user-info-edit-input"
+              (change)="updateProfile()"
+              (blur)="blurName()"
+              #nameField
+            >
+            <div *ngIf="isProfile && !isEditNameMode" class="user-info-edit-wrapper">
+              <mat-icon color="primary" class="user-info-edit" (click)="editName()">edit</mat-icon>
+            </div>
+          </div>
+          <div *ngIf="isProfile" class="user-info-container">
+            Email:&nbsp;
+            <span *ngIf="!isEditEmailMode">{{ form.email }}</span>
+            <input
+              *ngIf="isEditEmailMode"
+              [(ngModel)]="form.email"
+              class="user-info-edit-input"
+              (change)="updateProfile()"
+              (blur)="blurEmail()"
+              #emailField
+            >
+            <div *ngIf="!isEditEmailMode" class="user-info-edit-wrapper">
+              <mat-icon color="primary" class="user-info-edit" (click)="editEmail()">edit</mat-icon>
+            </div>
+          </div>
           <div>User sport types:</div>
           <div>test / test1 / test2</div>
           <div>Subscription count: test</div>

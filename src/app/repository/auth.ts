@@ -15,4 +15,8 @@ export class AuthRepository {
     const res = await axios.get('/profile')
     return res.data;
   }
+  async updateProfile(data: any) {
+    const res = await axios.patch('/profile', data)
+    return res.data;
+  }
 }
