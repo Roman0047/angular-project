@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {environment} from "../../../environments/environment";
+import {AuthService} from "../../auth.service";
 
 @Component({
   selector: 'app-avatar',
@@ -6,8 +8,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./avatar.component.scss']
 })
 export class AvatarComponent implements OnInit {
+  constructor(public authService: AuthService) { }
 
-  constructor() { }
+  @Input() user: any;
+
+  apiUrl = environment.apiUrl
 
   ngOnInit(): void {
   }

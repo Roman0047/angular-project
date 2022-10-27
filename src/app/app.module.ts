@@ -60,6 +60,8 @@ import {TricksRepository} from "./repository/tricks";
 import { TricksTableComponent } from './components/tricks-table/tricks-table.component';
 import {ThemeRepository} from "./repository/theme";
 import {PostsRepository} from "./repository/posts";
+import {UsersRepository} from "./repository/users";
+import {SubscribersRepository} from "./repository/subscribers";
 
 @NgModule({
   declarations: [
@@ -126,7 +128,9 @@ import {PostsRepository} from "./repository/posts";
     UserGuard,
     TricksRepository,
     ThemeRepository,
-    PostsRepository
+    PostsRepository,
+    UsersRepository,
+    SubscribersRepository,
   ],
   bootstrap: [AppComponent]
 })

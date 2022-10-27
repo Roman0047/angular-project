@@ -19,7 +19,7 @@
     ></video>
     <div *ngIf="!small">
       <div class="post-avatar">
-        <app-avatar></app-avatar>
+        <app-avatar [user]="post.user"></app-avatar>
       </div>
       <mat-chip-list class="post-tags">
         <mat-chip *ngIf="post.sport">{{ post.sport.name }}</mat-chip>

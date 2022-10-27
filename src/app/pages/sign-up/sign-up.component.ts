@@ -61,7 +61,7 @@ export class SignUpComponent implements OnInit {
         })
       }
 
-      if (error.response.data && error.response.data.error === 'Bad Request') {
+      if (error.response.data && typeof error.response.data.message === 'string') {
         this.errors = {}
         this.globalService.toast(error.response.data.message, 'error')
       }

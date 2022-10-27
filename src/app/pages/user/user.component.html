@@ -1,5 +1,5 @@
 <div class="page">
-  <div class="page-inner mb-90">
+  <div *ngIf="isProfile || user" class="page-inner mb-90">
     <div class="w-100 center">
       <mat-card-title class="mb-30">{{ isProfile ? 'Profile' : 'User' }}</mat-card-title>
     </div>
@@ -7,7 +7,8 @@
       <div class="user-info">
         <div *ngIf="!isProfile" class="user-avatar-wrapper">
           <div class="user-avatar">
-            <img src="https://www.industrialempathy.com/img/remote/ZiClJf-1920w.jpg" class="user-avatar-image" alt="">
+            <img *ngIf="user.avatar" [src]="apiUrl + user.avatar" class="user-avatar-image" alt="">
+            <mat-icon *ngIf="!user.avatar" class="user-avatar-icon">account_circle</mat-icon>
           </div>
         </div>
         <div *ngIf="isProfile" class="user-avatar-upload">
@@ -18,7 +19,7 @@
         <div class="user-info-data">
           <div class="user-info-container">
             Name:&nbsp;
-            <span *ngIf="!isEditNameMode">{{ isProfile ? form.name : 'other user name todo' }}</span>
+            <span *ngIf="!isEditNameMode">{{ isProfile ? form.name : user.name }}</span>
             <input
               *ngIf="isEditNameMode"
               [(ngModel)]="form.name"
@@ -48,10 +49,18 @@
           </div>
           <div>User sport types:</div>
           <div>test / test1 / test2</div>
-          <div>Subscription count: test</div>
+          <div>Subscribers: {{ subscribers }}</div>
           <div>Posts: {{ posts.length }}</div>
         </div>
-        <button *ngIf="!isProfile" mat-raised-button color="primary" class="mr-10">Subscribe</button>
+        <button
+          *ngIf="!isProfile"
+          mat-raised-button
+          [color]="!user.isSubscribed ? 'primary' : null"
+          class="mr-10"
+          (click)="subscribe()"
+        >
+          {{ !user.isSubscribed ? 'Subscribe' : 'Unsubscribe' }}
+        </button>
         <div *ngIf="isProfile" class="user-buttons">
           <button mat-raised-button color="base" routerLink="/sports-tricks">Update sports and tricks</button>
           <button mat-raised-button color="base" (click)="authService.logout()">Logout</button>

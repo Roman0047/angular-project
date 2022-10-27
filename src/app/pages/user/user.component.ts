@@ -1,9 +1,12 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {PostsRepository} from "../../repository/posts";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {AuthService} from "../../auth.service";
 import {AuthRepository} from "../../repository/auth";
 import {GlobalService} from "../../global.service";
+import {UsersRepository} from "../../repository/users";
+import {environment} from "../../../environments/environment";
+import {SubscribersRepository} from "../../repository/subscribers";
 
 @Component({
   selector: 'app-user',
@@ -16,11 +19,16 @@ export class UserComponent implements OnInit {
     private router: Router,
     public authService: AuthService,
     private authRepo: AuthRepository,
-    private globalService: GlobalService
+    private globalService: GlobalService,
+    private route: ActivatedRoute,
+    private usersRepository: UsersRepository,
+    private subscribersRepo: SubscribersRepository
   ) { }
 
   @ViewChild('nameField') nameField: ElementRef | undefined;
   @ViewChild('emailField') emailField: ElementRef | undefined;
+
+  apiUrl = environment.apiUrl
 
   form = {
     name: this.authService.user.name,
@@ -28,15 +36,23 @@ export class UserComponent implements OnInit {
     avatar: this.authService.user.avatar,
   }
 
+  user: any;
   posts = []
+  subscribers: any = 0;
   isProfile = this.router.url === '/profile';
   isEditNameMode = false
   isEditEmailMode = false
 
-  async getPosts() {
-    this.posts = await this.postsRepo.list({
-      isCurrentUser: true
-    });
+  async getPosts(id: any) {
+    this.posts = await this.postsRepo.list({ userId: this.isProfile ? this.authService.user.id : id });
+  }
+
+  async getSubscribers(id: any) {
+    this.subscribers = await this.subscribersRepo.get(this.isProfile ? this.authService.user.id : id);
+  }
+
+  async getUser(id: any) {
+    this.user = await this.usersRepository.get(id)
   }
 
   editName() {
@@ -70,6 +86,12 @@ export class UserComponent implements OnInit {
     }
   }
 
+  async subscribe() {
+    await this.subscribersRepo.subscribe(this.user.id)
+    this.getSubscribers(this.user.id)
+    this.getUser(this.user.id)
+  }
+
   async updateProfile() {
     try {
       await this.authRepo.updateProfile(this.form)
@@ -99,6 +121,20 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getPosts()
+    this.route.paramMap.subscribe(params => {
+      const id = params.get('id')
+
+      if (id) {
+        if (parseInt(<string>id) === this.authService.user.id) {
+          this.router.navigate(["/profile"])
+          return
+        } else {
+          this.getUser(id)
+        }
+      }
+
+      this.getPosts(id)
+      this.getSubscribers(id)
+    })
   }
 }

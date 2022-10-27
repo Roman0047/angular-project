@@ -1,3 +1,9 @@
-<button mat-fab color="basic" class="avatar" routerLink="/user">
-  <mat-icon class="avatar-icon">account_circle</mat-icon>
+<button
+  mat-fab
+  color="basic"
+  class="avatar"
+  [routerLink]="authService.user.id === user.id ? '/profile' : ['/user', user.id]"
+>
+  <img *ngIf="user.avatar" [src]="apiUrl + user.avatar" alt="user" class="avatar-image">
+  <mat-icon *ngIf="!user.avatar" class="avatar-icon">account_circle</mat-icon>
 </button>
