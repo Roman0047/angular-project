@@ -12,7 +12,7 @@ export class SubscriptionsComponent implements OnInit {
   posts = []
 
   async getPosts() {
-    this.posts = await this.postsRepo.list({
+    this.posts = await this.postsRepo.getSubscriptionsPosts({
       sport: true,
       trick: true,
       user: true

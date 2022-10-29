@@ -15,4 +15,8 @@ export class PostsRepository {
     const res = await axios.get(`/posts/${id}`)
     return res.data;
   }
+  async getSubscriptionsPosts(params?: any) {
+    const res = await axios.get('/posts/subscriptions', { params })
+    return res.data;
+  }
 }

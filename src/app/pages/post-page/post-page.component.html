@@ -1,11 +1,11 @@
 <div class="page">
-  <div class="page-inner mb-90">
+  <div *ngIf="post" class="page-inner mb-90">
     <div class="w-100 center">
       <mat-card-title class="mb-30">Post</mat-card-title>
     </div>
-    <app-post></app-post>
-    <mat-divider></mat-divider>
+    <app-post [post]="post"></app-post>
+    <mat-divider class="mt-10"></mat-divider>
     <mat-card-title class="mt-20 mb-20">Similar posts</mat-card-title>
-    <app-posts-list></app-posts-list>
+    <app-posts-list [posts]="posts"></app-posts-list>
   </div>
 </div>

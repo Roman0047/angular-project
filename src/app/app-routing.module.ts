@@ -31,7 +31,7 @@ const routes: Routes = [
   { path: 'new-post', component: NewPostComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'profile', component: UserComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'settings', component: SettingsComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'post', component: PostPageComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'post/:id', component: PostPageComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'sports-tricks', component: TricksComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'trick', component: TrickComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'sports', component: SportsComponent, canActivate: [AuthGuard, UserGuard] },

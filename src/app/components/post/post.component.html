@@ -1,12 +1,12 @@
 <div class="post">
   <div class="post-image-wrapper" [ngClass]="{'post-image-wrapper-small': small}">
-    <mat-card-title *ngIf="small" class="post-label mb-0" routerLink="/post">{{ post.title }}</mat-card-title>
+    <mat-card-title *ngIf="small" class="post-label mb-0" [routerLink]="['/post', post.id]">{{ post.title }}</mat-card-title>
     <img
       *ngIf="!globalService.isVideo(post.file)"
       [src]="apiUrl + post.file"
       alt="post-image"
       class="post-image"
-      routerLink="/post"
+      [routerLink]="['/post', post.id]"
     >
     <video
       *ngIf="globalService.isVideo(post.file)"
@@ -15,7 +15,7 @@
       class="post-image"
       autoplay
       loop
-      routerLink="/post"
+      [routerLink]="['/post', post.id]"
     ></video>
     <div *ngIf="!small">
       <div class="post-avatar">

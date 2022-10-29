@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {PostsRepository} from "../../repository/posts";
+import {ActivatedRoute, Router} from "@angular/router";
 
 @Component({
   selector: 'app-post-page',
@@ -6,10 +8,30 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./post-page.component.scss']
 })
 export class PostPageComponent implements OnInit {
+  constructor(private postsRepo: PostsRepository, private router: Router, private route: ActivatedRoute) { }
 
-  constructor() { }
+  post: any;
+  posts = []
 
-  ngOnInit(): void {
+  async getPost(id: string | null) {
+    if (parseInt(<string>id) !== 0) {
+      try {
+        this.post = await this.postsRepo.get(id);
+      } catch (error) {
+        this.router.navigate(['/404'])
+      }
+    }
   }
 
+  async getPosts() {
+    this.posts = await this.postsRepo.list();
+  }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe(async params => {
+      const id = params.get('id');
+      await this.getPost(id)
+      this.getPosts()
+    })
+  }
 }
