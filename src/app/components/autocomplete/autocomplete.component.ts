@@ -1,4 +1,4 @@
-import {ChangeDetectionStrategy, Component, Input, Output, DoCheck, EventEmitter} from '@angular/core';
+import {ChangeDetectionStrategy, Component, Input, Output, EventEmitter} from '@angular/core';
 import {FormControl} from "@angular/forms";
 
 @Component({
@@ -7,7 +7,7 @@ import {FormControl} from "@angular/forms";
   styleUrls: ['./autocomplete.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class AutocompleteComponent implements DoCheck {
+export class AutocompleteComponent {
   constructor() { }
   @Input() label: any
   @Input() options: any
@@ -19,6 +19,7 @@ export class AutocompleteComponent implements DoCheck {
     const options = this.optionsCtrl.value as string[];
     this.removeFirst(options, option);
     this.optionsCtrl.setValue(options);
+    this.change();
   }
 
   private removeFirst<A>(array: A[], toRemove: A): void {
@@ -28,7 +29,7 @@ export class AutocompleteComponent implements DoCheck {
     }
   }
 
-  ngDoCheck() {
+  change() {
     this.setOptions.emit(this.optionsCtrl.value);
   }
 

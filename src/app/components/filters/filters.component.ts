@@ -1,4 +1,5 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {SportsRepository} from "../../repository/sports";
 
 @Component({
   selector: 'app-filters',
@@ -6,29 +7,16 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./filters.component.scss']
 })
 export class FiltersComponent implements OnInit {
+  constructor(private sportsRepo: SportsRepository) { }
+
   @Input() isAdminSports: boolean = false;
   @Output() search = new EventEmitter<any>();
 
   isOpen = false
   selectedSports = []
-  sports = [
-    {
-      id: 1,
-      name: 'sport1',
-    },
-    {
-      id: 2,
-      name: 'sport2',
-    },
-    {
-      id: 3,
-      name: 'sport3',
-    },
-    {
-      id: 4,
-      name: 'sport4',
-    },
-  ]
+  selectedTricks = []
+  sports = []
+  tricks: any[] = []
 
   setIsOpen() {
     this.isOpen = !this.isOpen
@@ -47,14 +35,58 @@ export class FiltersComponent implements OnInit {
     }
   }
 
-  selectSports(sports: any) {
-    this.selectedSports = sports
-    this.updateHeight()
+  updateHeightWithTimeout() {
+    setTimeout(() => {
+      this.updateHeight()
+    }, 0)
   }
 
-  constructor() { }
-
-  ngOnInit(): void {
+  setFiltersTransition(isTransition: boolean) {
+    let filters = document.getElementById('filters')
+    if (filters) {
+      filters.style.transition = isTransition ? 'all 0.5s ease' : 'unset'
+    }
   }
 
+  selectSports(items: any) {
+    this.selectedSports = items
+    this.updateTricks()
+    this.updateHeightAfterChange()
+  }
+
+  selectTricks(items: any) {
+    this.selectedTricks = items
+    this.updateHeightAfterChange()
+  }
+
+  updateHeightAfterChange() {
+    this.setFiltersTransition(false)
+    this.updateHeightWithTimeout()
+    setTimeout(() => {
+      this.setFiltersTransition(true)
+    }, 100)
+  }
+
+  async getSports() {
+    this.sports = await this.sportsRepo.list({ tricks: true });
+  }
+
+  updateTricks() {
+    this.tricks = []
+
+    this.selectedSports.forEach((item: any) => {
+      this.tricks.push(...item.tricks)
+    })
+
+    this.tricks = this.tricks.filter((value, index) => {
+      const _value = JSON.stringify(value);
+      return index === this.tricks.findIndex(obj => {
+        return JSON.stringify(obj) === _value;
+      });
+    });
+  }
+
+  ngOnInit() {
+    this.getSports();
+  }
 }

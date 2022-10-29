@@ -17,9 +17,9 @@
         label="Search by sports"
       ></app-autocomplete>
       <app-autocomplete
-        *ngIf="!isAdminSports"
-        [options]="sports"
-        (setOptions)="selectSports($event)"
+        *ngIf="!isAdminSports && tricks.length"
+        [options]="tricks"
+        (setOptions)="selectTricks($event)"
         label="Search by tricks"
       ></app-autocomplete>
     </div>

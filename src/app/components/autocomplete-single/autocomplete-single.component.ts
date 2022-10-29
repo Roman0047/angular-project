@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnChanges, OnInit, Output} from '@angular/core';
 import {FormControl} from '@angular/forms';
 import {Observable} from 'rxjs';
 import {map, startWith} from 'rxjs/operators';
@@ -13,7 +13,7 @@ export interface Sport {
   templateUrl: './autocomplete-single.component.html',
   styleUrls: ['./autocomplete-single.component.scss']
 })
-export class AutocompleteSingleComponent implements OnInit {
+export class AutocompleteSingleComponent implements OnInit, OnChanges {
   // @ts-ignore
   myControl = new FormControl<string | Sport>('');
   @Input() options: Sport[] = [];
@@ -24,6 +24,10 @@ export class AutocompleteSingleComponent implements OnInit {
   filteredOptions: Observable<Sport[]> | undefined;
 
   ngOnInit() {
+    this.setFilteredOptions()
+  }
+
+  setFilteredOptions() {
     this.filteredOptions = this.myControl.valueChanges.pipe(
       startWith(''),
       map(value => {
@@ -45,5 +49,9 @@ export class AutocompleteSingleComponent implements OnInit {
     const filterValue = name.toLowerCase();
 
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
+  }
+
+  ngOnChanges(changes: any) {
+    this.setFilteredOptions()
   }
 }

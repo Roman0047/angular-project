@@ -24,7 +24,11 @@ export class PostPageComponent implements OnInit {
   }
 
   async getPosts() {
-    this.posts = await this.postsRepo.list();
+    this.posts = await this.postsRepo.list({
+      sportId: this.post.sportId,
+      trickId: this.post.trickId,
+      postId: this.post.id,
+    });
   }
 
   updateSubscription() {
