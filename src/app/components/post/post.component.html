@@ -48,7 +48,14 @@
   <div *ngIf="!small">
     <div class="post-title-wrapper">
       <mat-card-title class="mb-0">{{ post.title }}</mat-card-title>
-      <button mat-raised-button color="primary">Subscribe</button>
+      <button
+        *ngIf="isSubscribeButton"
+        mat-raised-button color="primary"
+        [color]="!post.user.isSubscribed ? 'primary' : null"
+        (click)="subscribe()"
+      >
+        {{ !post.user.isSubscribed ? 'Subscribe' : 'Unsubscribe' }}
+      </button>
     </div>
     <mat-card-subtitle *ngIf="post.description" class="mb-0">
       {{ post.description }}

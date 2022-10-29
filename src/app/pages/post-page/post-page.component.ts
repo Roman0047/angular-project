@@ -27,6 +27,10 @@ export class PostPageComponent implements OnInit {
     this.posts = await this.postsRepo.list();
   }
 
+  updateSubscription() {
+    this.post.user.isSubscribed = !this.post.user.isSubscribed
+  }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(async params => {
       const id = params.get('id');
