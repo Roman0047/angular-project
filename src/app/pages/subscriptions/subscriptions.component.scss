@@ -1,0 +1,11 @@
+.subscriptions {
+  display: flex;
+  align-items: center;
+  padding-bottom: 10px;
+  margin-bottom: 30px;
+  overflow-x: scroll;
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+  }
+}

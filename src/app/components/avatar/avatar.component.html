@@ -1,9 +1,13 @@
-<button
-  mat-fab
-  color="basic"
-  class="avatar"
+<div
+  class="avatar-wrapper"
   [routerLink]="authService.user.id === user.id ? '/profile' : ['/user', user.id]"
+  [class]="{ 'with-name': isName }"
 >
-  <img *ngIf="user.avatar" [src]="apiUrl + user.avatar" alt="user" class="avatar-image">
-  <mat-icon *ngIf="!user.avatar" class="avatar-icon">account_circle</mat-icon>
-</button>
+  <button mat-fab color="basic" class="avatar">
+    <img *ngIf="user.avatar" [src]="apiUrl + user.avatar" alt="user" class="avatar-image">
+    <mat-icon *ngIf="!user.avatar" class="avatar-icon">account_circle</mat-icon>
+  </button>
+  <mat-card-subtitle *ngIf="isName" class="avatar-text">
+    {{ user.name.slice(0, 9) }}{{ user.name.length > 9 ? '...' : '' }}
+  </mat-card-subtitle>
+</div>

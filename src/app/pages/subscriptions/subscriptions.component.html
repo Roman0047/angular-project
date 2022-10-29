@@ -1,13 +1,23 @@
 <div class="page">
-  <div class="page-inner mb-90">
+  <div *ngIf="isLoaded" class="page-inner mb-90">
     <div class="w-100 center">
-      <mat-card-title class="mb-30">Subscriptions</mat-card-title>
+      <mat-card-title class="mb-30">{{ subscriptions.length ? 'Subscriptions' : 'No subscriptions yet' }}</mat-card-title>
     </div>
-    <app-post
-      *ngFor="let item of posts; let i = index"
-      [post]="item"
-      [class]="i > 0 ? 'mt-40' : ''"
-    ></app-post>
+    <div *ngIf="subscriptions.length" class="subscriptions-wrapper">
+      <div class="subscriptions">
+        <app-avatar
+          *ngFor="let user of subscriptions; let i = index"
+          [user]="user"
+          [isName]="true"
+          [class]="i > 0 ? 'ml-10' : ''"
+        ></app-avatar>
+      </div>
+      <app-post
+        *ngFor="let item of posts; let i = index"
+        [post]="item"
+        [class]="i > 0 ? 'mt-40' : ''"
+      ></app-post>
+    </div>
   </div>
-  <app-filters></app-filters>
+  <app-filters *ngIf="subscriptions.length"></app-filters>
 </div>

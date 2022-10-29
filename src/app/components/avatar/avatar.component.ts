@@ -11,6 +11,7 @@ export class AvatarComponent implements OnInit {
   constructor(public authService: AuthService) { }
 
   @Input() user: any;
+  @Input() isName: boolean = false;
 
   apiUrl = environment.apiUrl
 
