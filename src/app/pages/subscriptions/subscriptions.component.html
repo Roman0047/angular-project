@@ -19,5 +19,10 @@
       ></app-post>
     </div>
   </div>
-  <app-filters *ngIf="subscriptions.length"></app-filters>
+  <app-filters
+    *ngIf="isPostsLength"
+    (search)="search($event)"
+    (setSports)="setSports($event)"
+    (setTricks)="setTricks($event)"
+  ></app-filters>
 </div>

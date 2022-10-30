@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
     sportsIds: [],
     tricksIds: [],
   }
+  isPostsLength = false
 
   async getPosts() {
     this.posts = await this.postsRepo.list({
@@ -39,7 +40,8 @@ export class HomeComponent implements OnInit {
     this.getPosts()
   }
 
-  ngOnInit(): void {
-    this.getPosts()
+  async ngOnInit() {
+    await this.getPosts()
+    this.isPostsLength = !!this.posts.length
   }
 }

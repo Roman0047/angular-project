@@ -13,13 +13,35 @@ export class SubscriptionsComponent implements OnInit {
   isLoaded = false
   posts = []
   subscriptions = []
+  searchPhrase = ''
+  filters = {
+    sportsIds: [],
+    tricksIds: [],
+  }
+  isPostsLength = false
 
   async getPosts() {
     this.posts = await this.postsRepo.getSubscriptionsPosts({
+      ...this.filters,
+      search: this.searchPhrase,
       sport: true,
       trick: true,
       user: true
     });
+  }
+
+  search(event: any) {
+    this.searchPhrase = event.target.value;
+    this.getPosts();
+  }
+
+  setSports(items: any) {
+    this.filters.sportsIds = items.map((item: any) => item.id)
+  }
+
+  setTricks(items: any) {
+    this.filters.tricksIds = items.map((item: any) => item.id)
+    this.getPosts()
   }
 
   async getSubscriptions() {
@@ -27,8 +49,9 @@ export class SubscriptionsComponent implements OnInit {
     this.isLoaded = true;
   }
 
-  ngOnInit(): void {
-    this.getPosts()
+  async ngOnInit() {
     this.getSubscriptions()
+    await this.getPosts()
+    this.isPostsLength = !!this.posts.length
   }
 }
