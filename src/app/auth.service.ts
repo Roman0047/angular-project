@@ -69,7 +69,7 @@ export class AuthService {
         `url('${environment.apiUrl + this.user.theme.backgroundImage.split('\\').join('/')}')`
     }
     if (this.user.theme.font) {
-      document.head.insertAdjacentHTML("beforeend", `<style>
+      document.head.insertAdjacentHTML("beforeend", `<style id="global-font-style">
         * {
          font-family: "${this.user.theme.font}", "Helvetica Neue", sans-serif;
         }
@@ -77,9 +77,18 @@ export class AuthService {
     }
   }
 
+  clearTheme() {
+    document.body.style.backgroundImage = 'unset'
+    const globalFontStyle = document.getElementById('global-font-style');
+    if (globalFontStyle) {
+      globalFontStyle.remove()
+    }
+  }
+
   logout() {
     localStorage.removeItem('token');
     this.updateState(false, null);
     this.router.navigate(["/sign-in"]);
+    this. clearTheme()
   }
 }

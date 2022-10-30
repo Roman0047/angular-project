@@ -11,6 +11,8 @@ export class FiltersComponent implements OnInit {
 
   @Input() isAdminSports: boolean = false;
   @Output() search = new EventEmitter<any>();
+  @Output() setSports = new EventEmitter<any>();
+  @Output() setTricks = new EventEmitter<any>();
 
   isOpen = false
   selectedSports = []
@@ -50,12 +52,15 @@ export class FiltersComponent implements OnInit {
 
   selectSports(items: any) {
     this.selectedSports = items
+    this.setSports.emit(this.selectedSports)
     this.updateTricks()
+    this.setTricks.emit(this.selectedTricks)
     this.updateHeightAfterChange()
   }
 
   selectTricks(items: any) {
     this.selectedTricks = items
+    this.setTricks.emit(this.selectedTricks)
     this.updateHeightAfterChange()
   }
 

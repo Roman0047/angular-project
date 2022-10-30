@@ -5,7 +5,9 @@
     </div>
     <app-post [post]="post" [isSubscribeButton]="true" (updateSubscription)="updateSubscription()"></app-post>
     <mat-divider class="mt-10"></mat-divider>
-    <mat-card-title class="mt-20 mb-20">Similar posts</mat-card-title>
-    <app-posts-list [posts]="posts"></app-posts-list>
+    <div *ngIf="posts.length">
+      <mat-card-title class="mt-20 mb-20">Similar posts</mat-card-title>
+      <app-posts-list [posts]="posts"></app-posts-list>
+    </div>
   </div>
 </div>

@@ -3,7 +3,11 @@
   <mat-select multiple [formControl]="optionsCtrl" (selectionChange)="change()">
     <mat-select-trigger>
       <mat-chip-list>
-        <mat-chip *ngFor="let option of optionsCtrl.value" [removable]="true" (removed)="onFeatureRemoved(option)">
+        <mat-chip
+          *ngFor="let option of selectedOptions"
+          [removable]="true"
+          (removed)="onFeatureRemoved(option)"
+        >
           {{ option.name }}
           <mat-icon matChipRemove>cancel</mat-icon>
         </mat-chip>

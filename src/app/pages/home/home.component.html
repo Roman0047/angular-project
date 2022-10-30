@@ -9,5 +9,9 @@
       [class]="i > 0 ? 'mt-40' : ''"
     ></app-post>
   </div>
-  <app-filters></app-filters>
+  <app-filters
+    (search)="search($event)"
+    (setSports)="setSports($event)"
+    (setTricks)="setTricks($event)"
+  ></app-filters>
 </div>
