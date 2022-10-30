@@ -30,11 +30,13 @@ export class AutocompleteComponent {
   }
 
   get selectedOptions() {
-    return this.optionsCtrl.value.filter((item: any) => this.options.find((option: any) => item.id === option.id))
+    this.optionsCtrl.setValue(
+      this.optionsCtrl.value.filter((item: any) => this.options.find((option: any) => item.id === option.id))
+    )
+    return this.optionsCtrl.value
   }
 
   change() {
     this.setOptions.emit(this.optionsCtrl.value);
   }
-
 }

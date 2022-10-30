@@ -89,6 +89,8 @@ export class FiltersComponent implements OnInit {
         return JSON.stringify(obj) === _value;
       });
     });
+
+    this.selectedTricks = this.selectedTricks.filter((trick: any) => this.tricks.find(item => item.id === trick.id))
   }
 
   ngOnInit() {
