@@ -22,8 +22,12 @@
         <app-avatar [user]="post.user"></app-avatar>
       </div>
       <mat-chip-list class="post-tags">
-        <mat-chip *ngIf="post.sport">{{ post.sport.name }}</mat-chip>
-        <mat-chip *ngIf="post.trick">{{ post.trick.name }}</mat-chip>
+        <mat-chip *ngIf="post.sport" (click)="setSportTags.emit(post.sport.id)">
+          {{ post.sport.name }}
+        </mat-chip>
+        <mat-chip *ngIf="post.trick" (click)="setTrickTags.emit(post.trick.id)">
+          {{ post.trick.name }}
+        </mat-chip>
       </mat-chip-list>
       <div class="post-rating">
         <button mat-mini-fab color="primary" class="post-rating-item">

@@ -11,12 +11,14 @@
         <input matInput (input)="search.emit($event)">
       </mat-form-field>
       <app-autocomplete
+        #sportsAutocomplete
         *ngIf="!isAdminSports"
         [options]="sports"
         (setOptions)="selectSports($event)"
         label="Search by sports"
       ></app-autocomplete>
       <app-autocomplete
+        #tricksAutocomplete
         *ngIf="!isAdminSports && tricks.length"
         [options]="tricks"
         (setOptions)="selectTricks($event)"

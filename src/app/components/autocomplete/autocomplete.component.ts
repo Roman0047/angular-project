@@ -36,6 +36,11 @@ export class AutocompleteComponent {
     return this.optionsCtrl.value
   }
 
+  updateSelectedOptions(newValue: any) {
+    this.optionsCtrl.setValue(newValue)
+    this.change()
+  }
+
   change() {
     this.setOptions.emit(this.optionsCtrl.value);
   }

@@ -17,6 +17,8 @@ export class PostComponent implements OnInit {
   @Input() small: any
   @Input() post: any
   @Output() updateSubscription = new EventEmitter<any>();
+  @Output() setSportTags = new EventEmitter<any>();
+  @Output() setTrickTags = new EventEmitter<any>();
 
   async subscribe() {
     try {

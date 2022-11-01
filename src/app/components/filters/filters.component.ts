@@ -1,5 +1,6 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {SportsRepository} from "../../repository/sports";
+import {AutocompleteComponent} from "../autocomplete/autocomplete.component";
 
 @Component({
   selector: 'app-filters',
@@ -9,15 +10,18 @@ import {SportsRepository} from "../../repository/sports";
 export class FiltersComponent implements OnInit {
   constructor(private sportsRepo: SportsRepository) { }
 
+  @ViewChild('sportsAutocomplete') sportsAutocomplete: AutocompleteComponent | undefined
+  @ViewChild('tricksAutocomplete') tricksAutocomplete: AutocompleteComponent | undefined
+
   @Input() isAdminSports: boolean = false;
   @Output() search = new EventEmitter<any>();
   @Output() setSports = new EventEmitter<any>();
   @Output() setTricks = new EventEmitter<any>();
 
   isOpen = false
-  selectedSports = []
-  selectedTricks = []
-  sports = []
+  selectedSports: any[] = []
+  selectedTricks: any[] = []
+  sports: any[] = []
   tricks: any[] = []
 
   setIsOpen() {
@@ -91,6 +95,32 @@ export class FiltersComponent implements OnInit {
     });
 
     this.selectedTricks = this.selectedTricks.filter((trick: any) => this.tricks.find(item => item.id === trick.id))
+  }
+
+  addSportId(id: any) {
+    if (!this.selectedSports.find((item: any) => item.id === id)) {
+      const sport = this.sports.find((item: any) => item.id === id);
+      if (sport) {
+        this.selectedSports.push(sport)
+        this.sportsAutocomplete?.updateSelectedOptions(this.selectedSports);
+      }
+    }
+  }
+
+  addTrickId(id: any) {
+    const sport: any = this.sports.find((item: any) => item.tricksIds.find((trickId: any) => trickId === id))
+    if (sport) {
+      this.addSportId(sport.id);
+      if (!this.selectedTricks.find((item: any) => item.id === id)) {
+        const trick = this.tricks.find((item: any) => item.id === id);
+        if (trick) {
+          this.selectedTricks.push(trick)
+          setTimeout(() => {
+            this.tricksAutocomplete?.updateSelectedOptions(this.selectedTricks);
+          }, 0)
+        }
+      }
+    }
   }
 
   ngOnInit() {

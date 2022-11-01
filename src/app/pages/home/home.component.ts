@@ -1,5 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {PostsRepository} from "../../repository/posts";
+import {FiltersComponent} from "../../components/filters/filters.component";
 
 @Component({
   selector: 'app-home',
@@ -8,6 +9,9 @@ import {PostsRepository} from "../../repository/posts";
 })
 export class HomeComponent implements OnInit {
   constructor(private postsRepo: PostsRepository) { }
+
+  @ViewChild('filtersComponent') filtersComponent: FiltersComponent | undefined;
+
   posts = []
   searchPhrase = ''
   filters = {
@@ -38,6 +42,18 @@ export class HomeComponent implements OnInit {
   setTricks(items: any) {
     this.filters.tricksIds = items.map((item: any) => item.id)
     this.getPosts()
+  }
+
+  setSportTags(id: any) {
+    if (this.filtersComponent) {
+      this.filtersComponent.addSportId(id)
+    }
+  }
+
+  setTrickTags(id: any) {
+    if (this.filtersComponent) {
+      this.filtersComponent.addTrickId(id)
+    }
   }
 
   async ngOnInit() {
