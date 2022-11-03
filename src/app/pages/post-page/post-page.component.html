@@ -3,7 +3,13 @@
     <div class="w-100 center">
       <mat-card-title class="mb-30">Post</mat-card-title>
     </div>
-    <app-post [post]="post" [isSubscribeButton]="true" (updateSubscription)="updateSubscription()"></app-post>
+    <app-post
+      [post]="post"
+      [isSubscribeButton]="true"
+      (updateSubscription)="updateSubscription()"
+      (setSportTags)="setSportTags($event)"
+      (setTrickTags)="setTrickTags($event)"
+    ></app-post>
     <mat-divider class="mt-10"></mat-divider>
     <div *ngIf="posts.length">
       <mat-card-title class="mt-20 mb-20">Similar posts</mat-card-title>

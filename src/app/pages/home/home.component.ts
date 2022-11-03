@@ -1,6 +1,7 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import {PostsRepository} from "../../repository/posts";
 import {FiltersComponent} from "../../components/filters/filters.component";
+import {ActivatedRoute} from "@angular/router";
 
 @Component({
   selector: 'app-home',
@@ -8,7 +9,7 @@ import {FiltersComponent} from "../../components/filters/filters.component";
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  constructor(private postsRepo: PostsRepository) { }
+  constructor(private postsRepo: PostsRepository, private route: ActivatedRoute) { }
 
   @ViewChild('filtersComponent') filtersComponent: FiltersComponent | undefined;
 
@@ -47,17 +48,29 @@ export class HomeComponent implements OnInit {
   setSportTags(id: any) {
     if (this.filtersComponent) {
       this.filtersComponent.addSportId(id)
+    } else {
+      setTimeout(() => {
+        this.setSportTags(id)
+      }, 50)
     }
   }
 
   setTrickTags(id: any) {
     if (this.filtersComponent) {
       this.filtersComponent.addTrickId(id)
+    } else {
+      setTimeout(() => {
+        this.setTrickTags(id)
+      }, 50)
     }
   }
 
   async ngOnInit() {
     await this.getPosts()
     this.isPostsLength = !!this.posts.length
+    this.route.queryParams.subscribe(params => {
+      if (params['sport']) this.setSportTags(+params['sport'])
+      if (params['trick']) this.setTrickTags(+params['trick'])
+    })
   }
 }

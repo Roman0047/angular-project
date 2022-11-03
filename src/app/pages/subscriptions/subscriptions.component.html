@@ -16,10 +16,13 @@
         *ngFor="let item of posts; let i = index"
         [post]="item"
         [class]="i > 0 ? 'mt-40' : ''"
+        (setSportTags)="setSportTags($event)"
+        (setTrickTags)="setTrickTags($event)"
       ></app-post>
     </div>
   </div>
   <app-filters
+    #filtersComponent
     *ngIf="isPostsLength"
     (search)="search($event)"
     (setSports)="setSports($event)"

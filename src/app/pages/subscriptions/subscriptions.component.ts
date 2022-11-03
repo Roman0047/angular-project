@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {PostsRepository} from "../../repository/posts";
 import {SubscribersRepository} from "../../repository/subscribers";
+import {FiltersComponent} from "../../components/filters/filters.component";
 
 @Component({
   selector: 'app-subscriptions',
@@ -9,6 +10,8 @@ import {SubscribersRepository} from "../../repository/subscribers";
 })
 export class SubscriptionsComponent implements OnInit {
   constructor(private postsRepo: PostsRepository, private subscribersRepo: SubscribersRepository) { }
+
+  @ViewChild('filtersComponent') filtersComponent: FiltersComponent | undefined;
 
   isLoaded = false
   posts = []
@@ -42,6 +45,18 @@ export class SubscriptionsComponent implements OnInit {
   setTricks(items: any) {
     this.filters.tricksIds = items.map((item: any) => item.id)
     this.getPosts()
+  }
+
+  setSportTags(id: any) {
+    if (this.filtersComponent) {
+      this.filtersComponent.addSportId(id)
+    }
+  }
+
+  setTrickTags(id: any) {
+    if (this.filtersComponent) {
+      this.filtersComponent.addTrickId(id)
+    }
   }
 
   async getSubscriptions() {

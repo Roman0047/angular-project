@@ -18,6 +18,7 @@ export class FiltersComponent implements OnInit {
   @Output() setSports = new EventEmitter<any>();
   @Output() setTricks = new EventEmitter<any>();
 
+  isLoaded = false
   isOpen = false
   selectedSports: any[] = []
   selectedTricks: any[] = []
@@ -78,6 +79,7 @@ export class FiltersComponent implements OnInit {
 
   async getSports() {
     this.sports = await this.sportsRepo.list({ tricks: true });
+    this.isLoaded = true
   }
 
   updateTricks() {
@@ -98,6 +100,13 @@ export class FiltersComponent implements OnInit {
   }
 
   addSportId(id: any) {
+    if (!this.isLoaded) {
+      setTimeout(() => {
+        this.addSportId(id);
+      }, 50)
+      return
+    }
+
     if (!this.selectedSports.find((item: any) => item.id === id)) {
       const sport = this.sports.find((item: any) => item.id === id);
       if (sport) {
@@ -108,6 +117,13 @@ export class FiltersComponent implements OnInit {
   }
 
   addTrickId(id: any) {
+    if (!this.isLoaded) {
+      setTimeout(() => {
+        this.addTrickId(id);
+      }, 50)
+      return
+    }
+
     const sport: any = this.sports.find((item: any) => item.tricksIds.find((trickId: any) => trickId === id))
     if (sport) {
       this.addSportId(sport.id);

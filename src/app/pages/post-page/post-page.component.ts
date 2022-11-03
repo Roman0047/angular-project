@@ -35,6 +35,14 @@ export class PostPageComponent implements OnInit {
     this.post.user.isSubscribed = !this.post.user.isSubscribed
   }
 
+  setSportTags(id: any) {
+    this.router.navigate(['/'], { queryParams: { sport: id } })
+  }
+
+  setTrickTags(id: any) {
+    this.router.navigate(['/'], { queryParams: { trick: id } })
+  }
+
   ngOnInit(): void {
     this.route.paramMap.subscribe(async params => {
       const id = params.get('id');
