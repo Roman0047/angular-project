@@ -53,7 +53,7 @@
     <div class="post-title-wrapper">
       <mat-card-title class="mb-0">{{ post.title }}</mat-card-title>
       <button
-        *ngIf="isSubscribeButton"
+        *ngIf="isSubscribeButton && post.user.id !== this.authService.user.id"
         mat-raised-button color="primary"
         [color]="!post.user.isSubscribed ? 'primary' : null"
         (click)="subscribe()"

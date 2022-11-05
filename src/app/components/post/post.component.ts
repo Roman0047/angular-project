@@ -2,6 +2,7 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {GlobalService} from "../../global.service";
 import {environment} from "../../../environments/environment";
 import {SubscribersRepository} from "../../repository/subscribers";
+import {AuthService} from "../../auth.service";
 
 @Component({
   selector: 'app-post',
@@ -9,7 +10,11 @@ import {SubscribersRepository} from "../../repository/subscribers";
   styleUrls: ['./post.component.scss']
 })
 export class PostComponent implements OnInit {
-  constructor(public globalService: GlobalService, private subscribersRepo: SubscribersRepository) { }
+  constructor(
+    public globalService: GlobalService,
+    private subscribersRepo: SubscribersRepository,
+    public authService: AuthService
+  ) { }
 
   apiUrl = environment.apiUrl
 
