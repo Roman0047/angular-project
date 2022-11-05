@@ -2,6 +2,10 @@ import { Component, OnInit } from '@angular/core';
 import {PostsRepository} from "../../repository/posts";
 import {ActivatedRoute, Router} from "@angular/router";
 import { Location } from '@angular/common';
+import {CommentsRepository} from "../../repository/comments";
+import {GlobalService} from "../../global.service";
+import {AuthService} from "../../auth.service";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-post-page',
@@ -11,13 +15,21 @@ import { Location } from '@angular/common';
 export class PostPageComponent implements OnInit {
   constructor(
     private postsRepo: PostsRepository,
+    private commentsRepo: CommentsRepository,
     private router: Router,
     private route: ActivatedRoute,
     public location: Location,
+    public globalService: GlobalService,
+    public authService: AuthService
   ) { }
 
   post: any;
   posts = []
+
+  comment: any = {
+    comment: '',
+  }
+  errors: any = {}
 
   async getPost(id: string | null) {
     if (parseInt(<string>id) !== 0) {
@@ -52,6 +64,42 @@ export class PostPageComponent implements OnInit {
 
   updateRating(rating: any) {
     this.post.ratings = rating
+  }
+
+  async sendComment() {
+    try {
+      if (this.comment.id) {
+        await this.commentsRepo.update(this.comment.id, this.comment)
+      } else {
+        await this.commentsRepo.create(this.post.id, this.comment)
+      }
+      this.comment = {
+        comment: '',
+      }
+      await this.getPost(this.post.id)
+      this.errors = {}
+    } catch (error: any) {
+      this.errors = this.globalService.getValidationErrors(error);
+    }
+  }
+
+  async removeComment(id: any) {
+    await this.commentsRepo.remove(id)
+    if (this.comment.id === id) {
+      this.comment = {
+        comment: '',
+      }
+    }
+    await this.getPost(this.post.id)
+  }
+
+  async editComment(comment: any) {
+    this.comment = { ...comment }
+    this.errors = {}
+  }
+
+  getCommentDate(date: moment.MomentInput) {
+    return moment(date).format('DD/MM/YYYY hh:mm')
   }
 
   ngOnInit(): void {

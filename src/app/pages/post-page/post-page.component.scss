@@ -1,1 +1,53 @@
+.comments {
+  &-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+}
 
+.add-comment {
+  display: flex;
+  margin-bottom: 20px;
+
+  ::ng-deep {
+    .mat-form-field {
+      flex: 1;
+
+      &-underline {
+        display: none;
+      }
+      &-flex {
+        border-radius: 4px;
+      }
+    }
+  }
+  &-button {
+    width: 120px;
+    height: 52px;
+    margin-left: 10px;
+  }
+}
+
+.comment {
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 20px;
+  &-content {
+    flex: 1;
+    margin-left: 10px;
+    &-label {
+      font-size: 13px;
+      display: flex;
+      align-items: center;
+      font-weight: 500;
+      .mat-card-subtitle {
+        font-size: 13px;
+      }
+    }
+  }
+}
+
+.comment:last-child {
+  margin-bottom: 0;
+}

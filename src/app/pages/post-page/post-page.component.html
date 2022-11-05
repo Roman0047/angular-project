@@ -16,10 +16,48 @@
       (setTrickTags)="setTrickTags($event)"
       (updateRating)="updateRating($event)"
     ></app-post>
-    <mat-divider class="mt-10"></mat-divider>
+    <mat-divider *ngIf="posts.length" class="mt-10"></mat-divider>
     <div *ngIf="posts.length">
       <mat-card-title class="mt-20 mb-20">Similar posts</mat-card-title>
       <app-posts-list [posts]="posts"></app-posts-list>
+    </div>
+    <mat-divider class="mt-20"></mat-divider>
+    <div>
+      <mat-card-title class="mt-20 mb-20">Comments</mat-card-title>
+      <div class="add-comment">
+        <mat-form-field [class]="{ isError: errors.comment }" appearance="fill">
+          <mat-label>{{ comment.id ? 'Edit' : 'Add' }} comment</mat-label>
+          <input [(ngModel)]="comment.comment" matInput>
+          <mat-hint *ngIf="errors.comment" class="error">{{ errors.comment }}</mat-hint>
+        </mat-form-field>
+        <button
+          class="add-comment-button"
+          mat-raised-button
+          color="primary"
+          (click)="sendComment()"
+        >
+          Send
+        </button>
+      </div>
+      <div *ngFor="let item of post.comments" class="comment">
+        <app-avatar [user]="item.user"></app-avatar>
+        <div class="comment-content">
+          <div class="comment-content-label">
+            {{ item.user.name }}
+            <mat-card-subtitle class="mb-0 ml-5">{{ getCommentDate(item.updated_at) }}</mat-card-subtitle>
+          </div>
+          <div>{{ item.comment }}</div>
+        </div>
+        <div *ngIf="item.user.id === authService.user.id">
+          <button class="mt-10" mat-icon-button [matMenuTriggerFor]="menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editComment(item)">Edit</button>
+            <button mat-menu-item (click)="removeComment(item.id)">Remove</button>
+          </mat-menu>
+        </div>
+      </div>
     </div>
   </div>
 </div>
