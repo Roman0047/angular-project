@@ -9,6 +9,7 @@
       [class]="i > 0 ? 'mt-40' : ''"
       (setSportTags)="setSportTags($event)"
       (setTrickTags)="setTrickTags($event)"
+      (updateRating)="updateRating(item.id, $event)"
     ></app-post>
   </div>
   <app-filters

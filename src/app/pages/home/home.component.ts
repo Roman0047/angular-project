@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
 
   @ViewChild('filtersComponent') filtersComponent: FiltersComponent | undefined;
 
-  posts = []
+  posts: any = []
   searchPhrase = ''
   filters = {
     sportsIds: [],
@@ -63,6 +63,11 @@ export class HomeComponent implements OnInit {
         this.setTrickTags(id)
       }, 50)
     }
+  }
+
+  updateRating(id: number, rating: any) {
+    const postId = this.posts.findIndex((item: any) => item.id === id)
+    this.posts[postId].ratings = rating
   }
 
   async ngOnInit() {

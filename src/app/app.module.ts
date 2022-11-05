@@ -62,6 +62,7 @@ import {ThemeRepository} from "./repository/theme";
 import {PostsRepository} from "./repository/posts";
 import {UsersRepository} from "./repository/users";
 import {SubscribersRepository} from "./repository/subscribers";
+import {RatingsRepository} from "./repository/ratings";
 
 @NgModule({
   declarations: [
@@ -131,6 +132,7 @@ import {SubscribersRepository} from "./repository/subscribers";
     PostsRepository,
     UsersRepository,
     SubscribersRepository,
+    RatingsRepository,
   ],
   bootstrap: [AppComponent]
 })

@@ -30,21 +30,31 @@
         </mat-chip>
       </mat-chip-list>
       <div class="post-rating">
-        <button mat-mini-fab color="primary" class="post-rating-item">
-        <span class="post-rating-item-inner">
-          <span class="post-rating-item-icon">
-          <mat-icon>thumb_up</mat-icon>
+        <button
+          mat-mini-fab
+          [color]="isLiked ? 'accent' : 'primary'"
+          class="post-rating-item"
+          (click)="rate('positive')"
+        >
+          <span class="post-rating-item-inner">
+            <span class="post-rating-item-icon">
+            <mat-icon>thumb_up</mat-icon>
+            </span>
+            <span class="post-rating-item-count">{{ post.ratings.likes }}</span>
           </span>
-          <span class="post-rating-item-count">100</span>
-        </span>
         </button>
-        <button mat-mini-fab color="primary" class="post-rating-item ml-10">
-        <span class="post-rating-item-inner">
-          <span class="post-rating-item-icon">
-          <mat-icon>thumb_down</mat-icon>
+        <button
+          mat-mini-fab
+          [color]="isDisliked ? 'accent' : 'primary'"
+          class="post-rating-item ml-10"
+          (click)="rate('negative')"
+        >
+          <span class="post-rating-item-inner">
+            <span class="post-rating-item-icon">
+            <mat-icon>thumb_down</mat-icon>
+            </span>
+            <span class="post-rating-item-count">{{ post.ratings.dislikes }}</span>
           </span>
-          <span class="post-rating-item-count">5</span>
-        </span>
         </button>
       </div>
     </div>

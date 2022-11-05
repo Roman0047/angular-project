@@ -14,7 +14,7 @@ export class SubscriptionsComponent implements OnInit {
   @ViewChild('filtersComponent') filtersComponent: FiltersComponent | undefined;
 
   isLoaded = false
-  posts = []
+  posts: any = []
   subscriptions = []
   searchPhrase = ''
   filters = {
@@ -62,6 +62,11 @@ export class SubscriptionsComponent implements OnInit {
   async getSubscriptions() {
     this.subscriptions = await this.subscribersRepo.getSubscriptions();
     this.isLoaded = true;
+  }
+
+  updateRating(id: number, rating: any) {
+    const postId = this.posts.findIndex((item: any) => item.id === id)
+    this.posts[postId].ratings = rating
   }
 
   async ngOnInit() {

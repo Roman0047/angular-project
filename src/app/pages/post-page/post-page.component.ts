@@ -34,6 +34,7 @@ export class PostPageComponent implements OnInit {
       sportId: this.post.sportId,
       trickId: this.post.trickId,
       postId: this.post.id,
+      limit: 9
     });
   }
 
@@ -47,6 +48,10 @@ export class PostPageComponent implements OnInit {
 
   setTrickTags(id: any) {
     this.router.navigate(['/'], { queryParams: { trick: id } })
+  }
+
+  updateRating(rating: any) {
+    this.post.ratings = rating
   }
 
   ngOnInit(): void {
