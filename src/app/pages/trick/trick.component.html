@@ -1,7 +1,12 @@
 <div class="page">
   <div class="page-inner">
     <div class="w-100 center">
-      <mat-card-title class="mb-30">Trick</mat-card-title>
+      <mat-card-title class="mb-30 center-title">
+        <button mat-icon-button class="mr-5" (click)="location.back()">
+          <mat-icon>arrow_back</mat-icon>
+        </button>
+        Trick
+      </mat-card-title>
     </div>
     <app-trick-item></app-trick-item>
   </div>

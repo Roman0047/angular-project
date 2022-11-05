@@ -82,6 +82,14 @@ $rules: (ml, margin-left), (mt, margin-top), (mb, margin-bottom), (mr, margin-ri
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  &-row {
+    @extend .center;
+    flex-direction: row;
+  }
+  &-title {
+    @extend .center-row;
+    display: flex !important;
+  }
 }
 
 body {

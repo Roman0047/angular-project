@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {PostsRepository} from "../../repository/posts";
 import {ActivatedRoute, Router} from "@angular/router";
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-post-page',
@@ -8,7 +9,12 @@ import {ActivatedRoute, Router} from "@angular/router";
   styleUrls: ['./post-page.component.scss']
 })
 export class PostPageComponent implements OnInit {
-  constructor(private postsRepo: PostsRepository, private router: Router, private route: ActivatedRoute) { }
+  constructor(
+    private postsRepo: PostsRepository,
+    private router: Router,
+    private route: ActivatedRoute,
+    public location: Location,
+  ) { }
 
   post: any;
   posts = []

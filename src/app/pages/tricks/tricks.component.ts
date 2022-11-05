@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-tricks',
@@ -6,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./tricks.component.scss']
 })
 export class TricksComponent implements OnInit {
-  constructor() {}
+  constructor(public location: Location) {}
 
   panelOpenState = false;
 

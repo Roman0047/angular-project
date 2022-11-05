@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-trick',
@@ -6,8 +7,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./trick.component.scss']
 })
 export class TrickComponent implements OnInit {
-
-  constructor() { }
+  constructor(public location: Location) { }
 
   ngOnInit(): void {
   }
