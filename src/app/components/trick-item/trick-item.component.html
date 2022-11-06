@@ -1,14 +1,23 @@
 <div class="post">
   <div class="post-image-wrapper">
-    <video class="post-video" controls>
-      <source src="https://file-examples-com.github.io/uploads/2017/04/file_example_MP4_480_1_5MG.mp4" type="video/mp4">
-    </video>
+    <img
+      *ngIf="!globalService.isVideo(trick.file)"
+      [src]="apiUrl + trick.file"
+      alt="post-image"
+      class="post-video"
+    >
+    <video
+      *ngIf="globalService.isVideo(trick.file)"
+      [src]="apiUrl + trick.file"
+      class="post-video"
+      controls
+    ></video>
   </div>
   <div>
     <div class="post-title-wrapper">
-      <mat-card-title class="mb-0">Title</mat-card-title>
-      <button mat-raised-button color="primary">Mark as done</button>
+      <mat-card-title class="mb-0">{{ trick.name }}</mat-card-title>
+      <button *ngIf="isAvailableForCurrentUser" mat-raised-button color="primary">Mark as done</button>
     </div>
-    <mat-card-subtitle class="mt-10">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab alias animi aperiam commodi cumque ducimus, enim facilis labore maiores molestiae mollitia necessitatibus, porro praesentium provident quam quod repellat sint, voluptates.</mat-card-subtitle>
+    <mat-card-subtitle class="mt-10">{{ trick.description }}</mat-card-subtitle>
   </div>
 </div>

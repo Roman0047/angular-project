@@ -1,67 +1,82 @@
 <div class="page">
-  <div class="page-inner mb-90">
+  <div *ngIf="user" class="page-inner mb-90">
     <div class="w-100 center">
       <mat-card-title class="mb-30 center-title">
         <button mat-icon-button class="mr-5" (click)="location.back()">
           <mat-icon>arrow_back</mat-icon>
         </button>
-        Choose tricks you can do
+        Tricks
       </mat-card-title>
     </div>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="mb-10">
+    <mat-expansion-panel *ngFor="let sport of user.sports" class="mb-10">
       <mat-expansion-panel-header>
-        <mat-panel-title>
-          sport 1
-        </mat-panel-title>
+        <mat-panel-title>{{ sport.name }}</mat-panel-title>
       </mat-expansion-panel-header>
+      <mat-card-subtitle *ngIf="!sport.tricks.length" class="mb-0">
+        There are no tricks in this sport yet
+      </mat-card-subtitle>
       <div>
-        <div class="level-easy">
-          Easy
-        </div>
-        <div class="tricks-list">
-          <div class="tricks-list-item">
-            <mat-checkbox color="primary"></mat-checkbox>
-            <mat-chip-list>
-              <mat-chip routerLink="/trick">trick 1 <mat-icon>visibility</mat-icon></mat-chip>
-            </mat-chip-list>
-          </div>
-          <div class="tricks-list-item">
-            <mat-checkbox color="primary"></mat-checkbox>
-            <mat-chip-list>
-              <mat-chip routerLink="/trick">trick 1 <mat-icon>visibility</mat-icon></mat-chip>
-            </mat-chip-list>
+        <div *ngIf="easyTricks(sport).length">
+          <div class="level-easy">Easy</div>
+          <div class="tricks-list">
+            <div *ngFor="let trick of easyTricks(sport)" class="tricks-list-item">
+              <mat-checkbox color="primary"></mat-checkbox>
+              <mat-chip-list>
+                <mat-chip [routerLink]="['/trick', trick.id]">
+                  {{ trick.name }}
+                  <mat-icon>visibility</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
           </div>
         </div>
-        <div class="level-medium">
-          Medium
+        <div *ngIf="mediumTricks(sport).length">
+          <div class="level-medium">Medium</div>
+          <div class="tricks-list">
+            <div *ngFor="let trick of mediumTricks(sport)" class="tricks-list-item">
+              <mat-checkbox color="primary"></mat-checkbox>
+              <mat-chip-list>
+                <mat-chip [routerLink]="['/trick', trick.id]">
+                  {{ trick.name }}
+                  <mat-icon>visibility</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+          </div>
         </div>
-        <div class="level-hard">
-          Hard
+        <div *ngIf="hardTricks(sport).length">
+          <div class="level-hard">Hard</div>
+          <div class="tricks-list">
+            <div *ngFor="let trick of hardTricks(sport)" class="tricks-list-item">
+              <mat-checkbox color="primary"></mat-checkbox>
+              <mat-chip-list>
+                <mat-chip [routerLink]="['/trick', trick.id]">
+                  {{ trick.name }}
+                  <mat-icon>visibility</mat-icon>
+                </mat-chip>
+              </mat-chip-list>
+            </div>
+          </div>
         </div>
       </div>
     </mat-expansion-panel>
-    <mat-expansion-panel (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="mb-10">
-      <mat-expansion-panel-header>
-        <mat-panel-title>
-          sport 2
-        </mat-panel-title>
-      </mat-expansion-panel-header>
-      <div>
-        <div class="level-easy">
-          Easy
-        </div>
-      </div>
-    </mat-expansion-panel>
-
-
-    <div class="add-sport">
+    <div *ngIf="isCurrentUser" class="add-sport">
       <app-autocomplete-single
-        [options]="sports"
+        #addSportInput
+        [options]="filteredSports"
         label="Add new sport"
         appearance="fill"
         (updateValue)="selectedSport = $event"
       ></app-autocomplete-single>
-      <button class="add-sport-button" mat-raised-button color="primary">Add</button>
+      <button
+        class="add-sport-button"
+        mat-raised-button
+        color="primary"
+        [disabled]="!selectedSport"
+        (click)="addSport()"
+      >
+        Add
+      </button>
     </div>
   </div>
 </div>

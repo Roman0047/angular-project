@@ -3,6 +3,15 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  ::ng-deep {
+    .mat-button-wrapper {
+      padding: 0;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
   &-icon {
     height: 45px;
     width: 45px;

@@ -19,4 +19,8 @@ export class AuthRepository {
     const res = await axios.patch('/profile', data)
     return res.data;
   }
+  async addSport(id: any) {
+    const res = await axios.post(`/profile/add-sport/${id}`)
+    return res.data;
+  }
 }

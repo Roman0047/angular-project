@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import {AuthRepository} from '../../repository/auth'
 import { Router } from "@angular/router";
 import {GlobalService} from "../../global.service";
+import {SportsRepository} from "../../repository/sports";
 
 @Component({
   selector: 'app-sign-up',
@@ -9,7 +10,12 @@ import {GlobalService} from "../../global.service";
   styleUrls: ['./sign-up.component.scss']
 })
 export class SignUpComponent implements OnInit {
-  constructor(private authRepo: AuthRepository, private router: Router, private globalService: GlobalService) { }
+  constructor(
+    private authRepo: AuthRepository,
+    private router: Router,
+    private globalService: GlobalService,
+    private sportsRepo: SportsRepository
+  ) { }
 
   hidePassword = true
   hideConfirmPassword = true
@@ -18,27 +24,10 @@ export class SignUpComponent implements OnInit {
     email: '',
     password: '',
     confirmPassword: '',
-    userSports: [],
+    sports: [],
   }
   errors: any = {}
-  sports = [
-    {
-      id: 1,
-      name: 'sport1',
-    },
-    {
-      id: 2,
-      name: 'sport2',
-    },
-    {
-      id: 3,
-      name: 'sport3',
-    },
-    {
-      id: 4,
-      name: 'sport4',
-    },
-  ]
+  sports = []
 
   async signup() {
     try {
@@ -68,6 +57,11 @@ export class SignUpComponent implements OnInit {
     }
   }
 
+  async getSports() {
+    this.sports = await this.sportsRepo.list({ tricks: true });
+  }
+
   ngOnInit(): void {
+    this.getSports()
   }
 }

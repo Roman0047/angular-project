@@ -47,23 +47,46 @@
               <mat-icon color="primary" class="user-info-edit" (click)="editEmail()">edit</mat-icon>
             </div>
           </div>
-          <div>User sport types:</div>
-          <div>test / test1 / test2</div>
+          <div *ngIf="userSports.length">User sports:</div>
+          <div *ngIf="userSports.length">
+            <mat-chip-list>
+              <mat-chip *ngFor="let item of userSports.slice(0, 3)">
+                {{ item.name }}
+              </mat-chip>
+              <mat-chip
+                *ngIf="userSports.length > 3"
+                [routerLink]="['/sports-tricks', isProfile ? authService.user.id : user.id]"
+              >
+                ...
+              </mat-chip>
+            </mat-chip-list>
+          </div>
           <div>Subscribers: {{ subscribers }}</div>
           <div>Posts: {{ posts.length }}</div>
         </div>
-        <button
-          *ngIf="!isProfile"
-          mat-raised-button
-          [color]="!user.isSubscribed ? 'primary' : null"
-          class="mr-10"
-          (click)="subscribe()"
-        >
-          {{ !user.isSubscribed ? 'Subscribe' : 'Unsubscribe' }}
-        </button>
-        <div *ngIf="isProfile" class="user-buttons">
-          <button mat-raised-button color="base" routerLink="/sports-tricks">Update sports and tricks</button>
-          <button mat-raised-button color="base" (click)="authService.logout()">Logout</button>
+        <div class="user-buttons">
+          <button
+            mat-raised-button color="base"
+            [routerLink]="['/sports-tricks', isProfile ? authService.user.id : user.id]"
+          >
+            Sports and tricks
+          </button>
+          <button
+            *ngIf="!isProfile"
+            mat-raised-button
+            [color]="!user.isSubscribed ? 'primary' : null"
+            (click)="subscribe()"
+          >
+            {{ !user.isSubscribed ? 'Subscribe' : 'Unsubscribe' }}
+          </button>
+          <button
+            *ngIf="isProfile"
+            mat-raised-button
+            color="base"
+            (click)="authService.logout()"
+          >
+            Logout
+          </button>
         </div>
       </div>
     </div>

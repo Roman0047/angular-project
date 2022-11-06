@@ -52,7 +52,7 @@ export class UserComponent implements OnInit {
   }
 
   async getUser(id: any) {
-    this.user = await this.usersRepository.get(id)
+    this.user = await this.usersRepository.get(id, { sports: true })
   }
 
   editName() {
@@ -118,6 +118,10 @@ export class UserComponent implements OnInit {
       this.isEditNameMode = false
       this.isEditEmailMode = false
     }
+  }
+
+  get userSports() {
+    return this.isProfile ? this.authService.user.sports : this.user.sports
   }
 
   ngOnInit(): void {

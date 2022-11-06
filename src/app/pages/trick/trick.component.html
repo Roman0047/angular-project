@@ -8,6 +8,6 @@
         Trick
       </mat-card-title>
     </div>
-    <app-trick-item></app-trick-item>
+    <app-trick-item *ngIf="trick" [trick]="trick"></app-trick-item>
   </div>
 </div>

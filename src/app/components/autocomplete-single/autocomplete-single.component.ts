@@ -51,6 +51,10 @@ export class AutocompleteSingleComponent implements OnInit, OnChanges {
     return this.options.filter(option => option.name.toLowerCase().includes(filterValue));
   }
 
+  clear() {
+    this.myControl.setValue('')
+  }
+
   ngOnChanges(changes: any) {
     this.setFilteredOptions()
   }
