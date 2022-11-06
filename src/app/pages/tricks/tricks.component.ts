@@ -29,9 +29,17 @@ export class TricksComponent implements OnInit {
   user: any;
   selectedSport: any
   sports = []
+  accordionsStates: boolean[] = []
 
   async getUser(id: any) {
-    this.user = await this.usersRepository.get(id, { sports: true, tricks: true })
+    this.user = await this.usersRepository.get(id, {
+      sports: true,
+      tricks: true,
+      completedTricks: true
+    })
+    this.accordionsStates = this.user.sports.map((item: any, index: number) => {
+      return this.accordionsStates[index] ? this.accordionsStates[index] : false
+    })
   }
 
   async getSports() {
@@ -39,15 +47,28 @@ export class TricksComponent implements OnInit {
   }
 
   easyTricks(sport: any) {
-    return sport ? sport.tricks.filter((item: any) => item.complexity === 'easy') : []
+    return this.filterTricks('easy', sport)
   }
 
   mediumTricks(sport: any) {
-    return sport ? sport.tricks.filter((item: any) => item.complexity === 'medium') : []
+    return this.filterTricks('medium', sport)
   }
 
   hardTricks(sport: any) {
-    return sport ? sport.tricks.filter((item: any) => item.complexity === 'hard') : []
+    return this.filterTricks('hard', sport)
+  }
+
+  filterTricks(complexity: any, sport: any) {
+    const filtered = sport ? sport.tricks.filter((item: any) => item.complexity === complexity) : []
+    if (this.isCurrentUser) {
+      return filtered
+    } else {
+      return filtered.filter((item: any) => this.isChecked(item.id))
+    }
+  }
+
+  isUserTricks(sport: any) {
+    return sport.tricks.filter((item: any) => this.isChecked(item.id)).length
   }
 
   get isCurrentUser() {
@@ -59,6 +80,19 @@ export class TricksComponent implements OnInit {
     this.addSportInput?.clear()
     this.selectedSport = null
     this.getUser(this.user.id)
+  }
+
+  async addTrick(id: any) {
+    if (this.isChecked(id)) {
+      await this.authRepo.removeTrick(id)
+    } else {
+      await this.authRepo.addTrick(id)
+    }
+    this.getUser(this.user.id)
+  }
+
+  isChecked(id: any) {
+    return this.user.tricks.find((item: any) => item.id === id)
   }
 
   get filteredSports() {

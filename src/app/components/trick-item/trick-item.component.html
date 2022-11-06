@@ -16,7 +16,14 @@
   <div>
     <div class="post-title-wrapper">
       <mat-card-title class="mb-0">{{ trick.name }}</mat-card-title>
-      <button *ngIf="isAvailableForCurrentUser" mat-raised-button color="primary">Mark as done</button>
+      <button
+        *ngIf="isAvailableForCurrentUser"
+        mat-raised-button
+        [color]="isChecked ? null : 'primary'"
+        (click)="addTrick()"
+      >
+        {{ isChecked ? 'Completed' : 'Mark as done' }}
+      </button>
     </div>
     <mat-card-subtitle class="mt-10">{{ trick.description }}</mat-card-subtitle>
   </div>

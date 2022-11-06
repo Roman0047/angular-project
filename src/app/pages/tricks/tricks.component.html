@@ -8,21 +8,29 @@
         Tricks
       </mat-card-title>
     </div>
-    <mat-expansion-panel *ngFor="let sport of user.sports" class="mb-10">
+    <mat-expansion-panel [(expanded)]="accordionsStates[i]" *ngFor="let sport of user.sports; let i = index" class="mb-10">
       <mat-expansion-panel-header>
         <mat-panel-title>{{ sport.name }}</mat-panel-title>
       </mat-expansion-panel-header>
       <mat-card-subtitle *ngIf="!sport.tricks.length" class="mb-0">
         There are no tricks in this sport yet
       </mat-card-subtitle>
+      <mat-card-subtitle *ngIf="sport.tricks.length && !isUserTricks(sport) && !isCurrentUser" class="mb-0">
+        There are no tricks here yet
+      </mat-card-subtitle>
       <div>
         <div *ngIf="easyTricks(sport).length">
           <div class="level-easy">Easy</div>
           <div class="tricks-list">
             <div *ngFor="let trick of easyTricks(sport)" class="tricks-list-item">
-              <mat-checkbox color="primary"></mat-checkbox>
+              <mat-checkbox
+                *ngIf="isCurrentUser"
+                [checked]="isChecked(trick.id)"
+                color="primary"
+                (change)="addTrick(trick.id)"
+              ></mat-checkbox>
               <mat-chip-list>
-                <mat-chip [routerLink]="['/trick', trick.id]">
+                <mat-chip [class]="{'ml-0': !isCurrentUser}" [routerLink]="['/trick', trick.id]">
                   {{ trick.name }}
                   <mat-icon>visibility</mat-icon>
                 </mat-chip>
@@ -34,9 +42,14 @@
           <div class="level-medium">Medium</div>
           <div class="tricks-list">
             <div *ngFor="let trick of mediumTricks(sport)" class="tricks-list-item">
-              <mat-checkbox color="primary"></mat-checkbox>
+              <mat-checkbox
+                *ngIf="isCurrentUser"
+                [checked]="isChecked(trick.id)"
+                color="primary"
+                (change)="addTrick(trick.id)"
+              ></mat-checkbox>
               <mat-chip-list>
-                <mat-chip [routerLink]="['/trick', trick.id]">
+                <mat-chip [class]="{'ml-0': !isCurrentUser}" [routerLink]="['/trick', trick.id]">
                   {{ trick.name }}
                   <mat-icon>visibility</mat-icon>
                 </mat-chip>
@@ -48,9 +61,14 @@
           <div class="level-hard">Hard</div>
           <div class="tricks-list">
             <div *ngFor="let trick of hardTricks(sport)" class="tricks-list-item">
-              <mat-checkbox color="primary"></mat-checkbox>
+              <mat-checkbox
+                *ngIf="isCurrentUser"
+                [checked]="isChecked(trick.id)"
+                color="primary"
+                (change)="addTrick(trick.id)"
+              ></mat-checkbox>
               <mat-chip-list>
-                <mat-chip [routerLink]="['/trick', trick.id]">
+                <mat-chip [class]="{'ml-0': !isCurrentUser}" [routerLink]="['/trick', trick.id]">
                   {{ trick.name }}
                   <mat-icon>visibility</mat-icon>
                 </mat-chip>
@@ -60,7 +78,7 @@
         </div>
       </div>
     </mat-expansion-panel>
-    <div *ngIf="isCurrentUser" class="add-sport">
+    <div *ngIf="isCurrentUser && filteredSports.length" class="add-sport">
       <app-autocomplete-single
         #addSportInput
         [options]="filteredSports"

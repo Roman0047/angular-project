@@ -23,4 +23,12 @@ export class AuthRepository {
     const res = await axios.post(`/profile/add-sport/${id}`)
     return res.data;
   }
+  async addTrick(id: any) {
+    const res = await axios.post(`/profile/add-trick/${id}`)
+    return res.data;
+  }
+  async removeTrick(id: any) {
+    const res = await axios.delete(`/profile/trick/${id}`)
+    return res.data;
+  }
 }
