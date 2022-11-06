@@ -29,7 +29,7 @@ export class TricksComponent implements OnInit {
   user: any;
   selectedSport: any
   sports = []
-  accordionsStates: boolean[] = []
+  accordionsStates: any[] = []
 
   async getUser(id: any) {
     this.user = await this.usersRepository.get(id, {
@@ -37,9 +37,14 @@ export class TricksComponent implements OnInit {
       tricks: true,
       completedTricks: true
     })
-    this.accordionsStates = this.user.sports.map((item: any, index: number) => {
-      return this.accordionsStates[index] ? this.accordionsStates[index] : false
+    this.accordionsStates = this.user.sports.map((item: any) => {
+      const accordionsState = this.accordionsStates.find((state: any) => state.id === item.id)
+      return accordionsState ? accordionsState : { id: item.id, state: false }
     })
+  }
+
+  getStateIndex(id: any) {
+    return this.accordionsStates.findIndex((state: any) => state.id === id)
   }
 
   async getSports() {
@@ -80,6 +85,8 @@ export class TricksComponent implements OnInit {
     this.addSportInput?.clear()
     this.selectedSport = null
     this.getUser(this.user.id)
+    this.authService.getProfile()
+
   }
 
   async addTrick(id: any) {
@@ -89,6 +96,7 @@ export class TricksComponent implements OnInit {
       await this.authRepo.addTrick(id)
     }
     this.getUser(this.user.id)
+    this.authService.getProfile()
   }
 
   isChecked(id: any) {
